@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   return (
     <div className="w-full flex items-center bg-[#2b2d42]">
-      <div className="w-full flex justify-center items-center text-white py-8 mx-auto">
+      <div className="w-full max-w-screen-xl flex justify-center items-center text-white py-8 mx-auto">
         <h1 className="font-medium text-4xl">Newzy</h1>
         <ul className="flex gap-6 text-lg font-semibold ml-40">
           <li>Sport</li>
