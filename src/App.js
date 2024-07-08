@@ -4,7 +4,7 @@ import Body from "./components/Body";
 
 function App() {
   return (
-    <div className="App w-full h-screen flex flex-col overflow-hidden bg-white">
+    <div className="App w-full h-screen flex flex-col bg-white">
       <Header />
       <Body />
       <Footer />
