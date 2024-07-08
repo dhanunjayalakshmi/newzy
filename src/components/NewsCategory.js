@@ -4,8 +4,6 @@ import React from "react";
 
 const NewsItem = ({ newsInfo, name, newsColor }) => {
   const { imageUrl } = newsInfo;
-  const color = "red";
-  console.log(newsColor);
 
   return (
     <div className="w-full flex flex-col gap-8">
