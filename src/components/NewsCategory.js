@@ -38,6 +38,7 @@ const NewsItem = () => {
 };
 
 const NewsCategory = ({ categoryInfo }) => {
+  console.log(categoryInfo);
   return (
     <div className="w-full flex justify-center mt-4">
       <div className="w-full max-w-screen-xl flex flex-col justify-center py-4 mx-auto">
