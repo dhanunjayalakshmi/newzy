@@ -18,7 +18,8 @@
           "headline": "",
           "description": ""
         }
-      ]
+      ],
+      "newsColor": "3d0ef9"
     },
     {
       "name": "Political",
@@ -38,7 +39,8 @@
           "headline": "",
           "description": ""
         }
-      ]
+      ],
+      "newsColor": "b01b40"
     },
     {
       "name": "Sport",
@@ -58,7 +60,8 @@
           "headline": "",
           "description": ""
         }
-      ]
+      ],
+      "newsColor": "1eb01b"
     },
     {
       "name": "Health",
@@ -78,7 +81,8 @@
           "headline": "",
           "description": ""
         }
-      ]
+      ],
+      "newsColor": "ad1bb0"
     },
     {
       "name": "Finanace",
@@ -98,7 +102,8 @@
           "headline": "",
           "description": ""
         }
-      ]
+      ],
+      "newsColor": "f9630e"
     }
   ]
 }
