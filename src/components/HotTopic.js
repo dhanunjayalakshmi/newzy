@@ -9,7 +9,7 @@ const HotTopic = () => {
         <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
         <div className="w-full flex justify-around gap-6 py-4">
           <img
-            src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240628%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240628T111250Z&X-Amz-Expires=25200&X-Amz-Signature=210b4ed0f1043297e0433c5b4fbf906d429e2e99a7c07cef0ef108a56b5f1d9a&X-Amz-SignedHeaders=host"
+            src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_5.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240708%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240708T120653Z&X-Amz-Expires=25200&X-Amz-Signature=c83d9bd638d353d392c56a2b9150d455440dd7234e2d9957fa7b0d5766b8b0bb&X-Amz-SignedHeaders=host"
             alt=""
             className="w-[48%] h-full object-cover"
           />
@@ -31,7 +31,7 @@ const HotTopic = () => {
         <div className="w-full flex gap-10 mt-6 py-4">
           <div className="w-full flex gap-2.5">
             <img
-              src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_1479.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240628%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240628T111250Z&X-Amz-Expires=25200&X-Amz-Signature=35e7ada8fc3d3b933d4672958c451888afb41e4dd043cd832def2c95df1263b7&X-Amz-SignedHeaders=host"
+              src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_1479.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240708%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240708T120653Z&X-Amz-Expires=25200&X-Amz-Signature=6a8f6c5945e77ef1279283b324c38b75e56e2fd595cd315c34e429b658ae3fd6&X-Amz-SignedHeaders=host"
               alt=""
               className="w-[84px] h-[84px] object cover"
             />
@@ -49,7 +49,7 @@ const HotTopic = () => {
           </div>
           <div className="w-full flex gap-2.5">
             <img
-              src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_1479_84x84.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240628%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240628T111250Z&X-Amz-Expires=25200&X-Amz-Signature=19bd9bd4c4bea80d5479289180405db73602cd44c3a6d195ff697da5b8d66c42&X-Amz-SignedHeaders=host"
+              src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_1479_84x84.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240708%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240708T120653Z&X-Amz-Expires=25200&X-Amz-Signature=51678ef5cbcc6659bed5b3020ae29ea82ea3b9db7170e905300ef2d46c29a802&X-Amz-SignedHeaders=host"
               alt=""
               className="w-[84px] h-[84px] object cover"
             />
@@ -67,7 +67,7 @@ const HotTopic = () => {
           </div>
           <div className="w-full flex gap-2.5">
             <img
-              src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_1479_1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240628%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240628T111250Z&X-Amz-Expires=25200&X-Amz-Signature=5b083f3cb3be04e9cb54054aba02edd9b041cbe5037d60319d574de1f612b5f1&X-Amz-SignedHeaders=host"
+              src="https://dhws-production.s3.ap-south-1.amazonaws.com/60d476bc92d3a3001575d2ee/60d47a1992d5640016253693/639c702090ab520015fa42a3/appSource/images/img_rectangle_1479_1.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQODH4IWPZWQNPYGZ%2F20240708%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20240708T120653Z&X-Amz-Expires=25200&X-Amz-Signature=f2c9a67ba1076c9516f8b16f515c7e56c1285f66ca767b1fb454742464b9f364&X-Amz-SignedHeaders=host"
               alt=""
               className="w-[84px] h-[84px] object cover"
             />
