@@ -8,8 +8,9 @@ const NewsItem = ({ newsInfo, name, newsColor }) => {
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="h-[44%] relative">
-        <img src={imageUrl} alt="" className="w-full h-full object-cover" />
-        <div className="w-full h-max flex flex-col items-start absolute px-6 py-4 gap-44 bottom-0 left-0 right-0 top-0 text-white">
+        <img src={imageUrl} alt="" className="w-full h-64 object-cover" />
+        {/* <div class="w-full h-max absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-75"></div> */}
+        <div className="w-full h-64 flex flex-col items-start absolute px-6 pt-4 gap-44 bottom-0 left-0 right-0 top-0 text-white bg-gradient-to-t from-black via-transparent to-transparent opacity-75">
           <button
             className={`flex self-end font-bold items-center justify-center text-center cursor-pointer py-1 px-3 text-xs bg-[#${newsColor}]`}
           >
