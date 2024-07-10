@@ -3,6 +3,7 @@ import HotTopic from "./HotTopic";
 import LatestRelease from "./LatestRelease";
 import NewsCategory from "./NewsCategory";
 import mockData from "../utils/mockData.json";
+import Subscribe from "./Subscribe";
 
 const Body = () => {
   const newsCategories = mockData?.data;
@@ -14,6 +15,7 @@ const Body = () => {
       {newsCategories?.map((category) => (
         <NewsCategory categoryInfo={category} />
       ))}
+      <Subscribe />
     </div>
   );
 };

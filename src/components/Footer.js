@@ -8,7 +8,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="w-full flex justify-center bg-black text-white">
+    <div className="w-full flex justify-center bg-black text-white mt-4">
       <div className="w-full max-w-screen-xl flex flex-col justify-center py-4 mx-auto">
         <div className="flex items-start justify-between py-10 gap-56">
           <div className="w-[25%] flex flex-col gap-6">
