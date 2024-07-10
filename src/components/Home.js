@@ -5,7 +5,7 @@ import NewsCategory from "./NewsCategory";
 import mockData from "../utils/mockData.json";
 import Subscribe from "./Subscribe";
 
-const Body = () => {
+const Home = () => {
   const newsCategories = mockData?.data;
 
   return (
@@ -20,4 +20,4 @@ const Body = () => {
   );
 };
 
-export default Body;
+export default Home;
