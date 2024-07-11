@@ -34,11 +34,10 @@ const ForgotPassword = () => {
               Reset Password
             </button>
             <p className="text-sm">
-              Do you already have an account??{" "}
-              <Link to="/register" className="text-lg font-bold">
-                Login
+              You can now login from{" "}
+              <Link to="/login" className="text-lg font-bold">
+                Here
               </Link>{" "}
-              Now
             </p>
           </div>
         </div>

@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
+import UpdatePassword from "./components/UpdatePassword";
 
 const RoutesConfig = () => {
   return useRoutes([
@@ -12,6 +13,7 @@ const RoutesConfig = () => {
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
     { path: "/forgotPassword", element: <ForgotPassword /> },
+    { path: "/updatePassword", element: <UpdatePassword /> },
   ]);
 };
 

@@ -91,7 +91,7 @@ const Login = () => {
                   />{" "}
                   Remember me?
                 </label>
-                <button>Forgot Password</button>
+                <Link to="/forgotPassword">Forgot Password</Link>
               </div>
               <button className="bg-[#2b2d42] p-4 text-white text-lg font-medium rounded-lg">
                 Login
