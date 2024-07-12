@@ -10,7 +10,7 @@ const NewsCategory = ({ categoryInfo }) => {
         <div className="flex items-center justify-between">
           <h1 className="font-bold text-4xl">{name}</h1>
           <div className="p-4">
-            <Link to="allBlog">
+            <Link to="/allBlog">
               <button className="text-md py-2 px-8 bg-[#2b2d42] text-white border rounded-lg">
                 View All
               </button>
