@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const HotTopic = () => {
   return (
@@ -21,10 +22,12 @@ const HotTopic = () => {
             </h2>
             <p className="text-xl font-bold p-4">New York, 22 August 2022</p>
             <div className="px-4 py-2">
-              <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
-                Read More
-                <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-              </button>
+              <Link to="/singleBlog">
+                <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
+                  Read More
+                  <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+                </button>
+              </Link>
             </div>
           </div>
         </div>

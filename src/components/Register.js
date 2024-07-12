@@ -5,7 +5,6 @@ import mockData from "../utils/mockData.json";
 
 const Register = () => {
   const newsCategory = mockData?.data[0];
-  console.log(newsCategory);
 
   return (
     <div className="w-full max-w-screen-xl flex justify-center items-center mt-6 mx-auto ">

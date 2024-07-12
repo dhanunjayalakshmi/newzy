@@ -1,6 +1,7 @@
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NewsItem = ({ newsInfo, name, newsColor }) => {
   const { imageUrl } = newsInfo;
@@ -27,10 +28,12 @@ const NewsItem = ({ newsInfo, name, newsColor }) => {
           he calls for the country to be thrown off the UN Security Council.
         </p>
         <div className="py-4">
-          <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
-            Read More
-            <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-          </button>
+          <Link to="/singleBlog">
+            <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
+              Read More
+              <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

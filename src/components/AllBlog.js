@@ -2,11 +2,12 @@ import React from "react";
 import { faArrowTurnUp, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import mockData from "../utils/mockData.json";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const NewsGrid = ({ newsInfo, name, newsColor }) => {
+  useScrollToTop();
   const { imageUrl } = newsInfo;
-  console.log(name);
 
   return (
     <div className="w-full flex flex-col gap-8">
@@ -30,10 +31,12 @@ const NewsGrid = ({ newsInfo, name, newsColor }) => {
           he calls for the country to be thrown off the UN Security Council.
         </p>
         <div className="py-2">
-          <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center">
-            Read More
-            <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-          </button>
+          <Link to="/singleBlog">
+            <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center">
+              Read More
+              <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

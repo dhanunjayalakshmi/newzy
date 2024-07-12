@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NewsSmallGrid = () => {
   return (
@@ -24,12 +25,27 @@ const NewsSmallGrid = () => {
 const AllBlogSidebar = () => {
   return (
     <div className="flex flex-col gap-6 mt-4">
-      <NewsSmallGrid />
-      <NewsSmallGrid />
-      <NewsSmallGrid />
-      <NewsSmallGrid />
-      <NewsSmallGrid />
-      <NewsSmallGrid />
+      <Link to="/singleBlog">
+        <NewsSmallGrid />
+      </Link>
+      <Link to="/singleBlog">
+        <NewsSmallGrid />
+      </Link>
+      <Link to="/singleBlog">
+        <NewsSmallGrid />
+      </Link>
+      <Link to="/singleBlog">
+        <NewsSmallGrid />
+      </Link>
+      <Link to="/singleBlog">
+        <NewsSmallGrid />
+      </Link>
+      <Link to="/singleBlog">
+        <NewsSmallGrid />
+      </Link>
+      <Link to="/singleBlog">
+        <NewsSmallGrid />
+      </Link>
     </div>
   );
 };

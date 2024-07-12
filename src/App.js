@@ -8,6 +8,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import UpdatePassword from "./components/UpdatePassword";
 import AllBlog from "./components/AllBlog";
 import AllBlogSidebar from "./components/AllBlogSidebar";
+import SingleBlog from "./components/SingleBlog";
 
 const RoutesConfig = () => {
   return useRoutes([
@@ -24,6 +25,7 @@ const RoutesConfig = () => {
         { path: ":blogFilter", element: <AllBlogSidebar /> },
       ],
     },
+    { path: "/singleBlog", element: <SingleBlog /> },
   ]);
 };
 

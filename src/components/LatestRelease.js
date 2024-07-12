@@ -42,10 +42,12 @@ const LatestRelease = () => {
                 Security Council.
               </p>
               <div className="py-4">
-                <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
-                  Read More
-                  <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-                </button>
+                <Link to="/singleBlog">
+                  <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
+                    Read More
+                    <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -66,10 +68,12 @@ const LatestRelease = () => {
                   his name is quite explosive on the international scene
                 </p>
                 <div className="py-4">
-                  <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
-                    Read More
-                    <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-                  </button>
+                  <Link to="/singleBlog">
+                    <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
+                      Read More
+                      <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -90,10 +94,12 @@ const LatestRelease = () => {
                   become..
                 </p>
                 <div className="py-4">
-                  <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
-                    Read More
-                    <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-                  </button>
+                  <Link to="/singleBlog">
+                    <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
+                      Read More
+                      <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
