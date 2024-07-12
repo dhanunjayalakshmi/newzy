@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { Navigate, BrowserRouter as Router, useRoutes } from "react-router-dom";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import ForgotPassword from "./components/ForgotPassword";
+import UpdatePassword from "./components/UpdatePassword";
+import AllBlog from "./components/AllBlog";
+import AllBlogSidebar from "./components/AllBlogSidebar";
+import SingleBlog from "./components/SingleBlog";
+
+const RoutesConfig = () => {
+  return useRoutes([
+    { path: "/", element: <Home /> },
+    { path: "/login", element: <Login /> },
+    { path: "/register", element: <Register /> },
+    { path: "/forgotPassword", element: <ForgotPassword /> },
+    { path: "/updatePassword", element: <UpdatePassword /> },
+    {
+      path: "/allBlog",
+      element: <AllBlog />,
+      children: [
+        { path: "", element: <Navigate replace to="latest" /> },
+        { path: ":blogFilter", element: <AllBlogSidebar /> },
+      ],
+    },
+    { path: "/singleBlog", element: <SingleBlog /> },
+  ]);
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <div className="App w-full h-screen flex flex-col bg-white">
+          <Header />
+          <RoutesConfig />
+          <Footer />
+        </div>
+      </Router>
     </div>
   );
 }
