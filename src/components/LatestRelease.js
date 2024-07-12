@@ -1,6 +1,7 @@
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LatestRelease = () => {
   return (
@@ -9,9 +10,11 @@ const LatestRelease = () => {
         <div className="flex items-center justify-between">
           <h1 className="font-bold text-4xl py-4">Latest Release</h1>
           <div className="p-4">
-            <button className="text-md py-2 px-8 bg-[#2b2d42] text-white border rounded-lg">
-              View All
-            </button>
+            <Link to="allBlog">
+              <button className="text-md py-2 px-8 bg-[#2b2d42] text-white border rounded-lg">
+                View All
+              </button>
+            </Link>
           </div>
         </div>
         <div className="flex justify-around gap-12 py-4">

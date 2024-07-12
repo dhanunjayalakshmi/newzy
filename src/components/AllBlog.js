@@ -2,7 +2,7 @@ import React from "react";
 import { faArrowTurnUp, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import mockData from "../utils/mockData.json";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const NewsGrid = ({ newsInfo, name, newsColor }) => {
   const { imageUrl } = newsInfo;
