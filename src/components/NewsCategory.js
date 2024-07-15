@@ -19,8 +19,13 @@ const NewsCategory = ({ categoryInfo }) => {
         </div>
         <div className="h-px my-4 bg-black"></div>
         <div className="flex justify-between mt-6 gap-6">
-          {news?.map((newsItem) => (
-            <NewsItem newsInfo={newsItem} name={name} newsColor={newsColor} />
+          {news?.map((newsItem, index) => (
+            <NewsItem
+              key={index}
+              newsInfo={newsItem}
+              name={name}
+              newsColor={newsColor}
+            />
           ))}
         </div>
       </div>

@@ -1,96 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import useFetchData from "../hooks/useFetchData";
+import { dateFormatting } from "../utils/dateformat";
 
-const HotTopic = () => {
+const SideArticle = ({ article }) => {
+  const { formattedDate, relativeTime } = dateFormatting(article?.publishedAt);
+
   return (
-    <div className="w-full flex justify-center mt-4">
-      <div className="w-full max-w-screen-xl flex flex-col justify-center py-4 mx-auto">
-        <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
-        <div className="w-full flex justify-around gap-6 py-4">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GvxD5PPEPafQDfOVb9qBwuhQmwwG-H0hvg&s"
-            alt=""
-            className="w-[48%] h-64 object-cover"
-          />
-
-          <div className="flex flex-1 flex-col gap-8">
-            <h2 className="text-4xl font-bold px-4">
-              Miami Dolphins won the match and officially qualified for the
-              final
-            </h2>
-            <p className="text-xl font-bold p-4">New York, 22 August 2022</p>
-            <div className="px-4 py-2">
-              <Link to="/singleBlog">
-                <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
-                  Read More
-                  <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="w-full flex gap-10 mt-6 py-4">
-          <div className="w-full flex gap-2.5">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GvxD5PPEPafQDfOVb9qBwuhQmwwG-H0hvg&s"
-              alt=""
-              className="w-[84px] h-[84px] object cover"
-            />
-            <div className="flex flex-1 flex-col items-start justify-between">
-              <h6 className="text-lg font-bold leading-none">
-                How to maximize investment with mutual funds
-              </h6>
-              <div className="flex gap-2 items-center">
-                <p className="text-xs font-bold">Indonesia, 22 August 2022</p>
-                <p className="text-xs font-normal text-[#88888c]">
-                  - 15 minutes ago
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex gap-2.5">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GvxD5PPEPafQDfOVb9qBwuhQmwwG-H0hvg&s"
-              alt=""
-              className="w-[84px] h-[84px] object cover"
-            />
-            <div className="flex flex-1 flex-col items-start justify-between">
-              <h6 className="text-lg font-bold leading-none">
-                john kennedy won 3rd oscar trophy at los angles
-              </h6>
-              <div className="flex gap-2 items-center">
-                <p className="text-xs font-bold">Los Angles, 22 August 2022</p>
-                <p className="text-xs font-normal text-[#88888c]">
-                  - 22 minutes ago
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex gap-2.5">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GvxD5PPEPafQDfOVb9qBwuhQmwwG-H0hvg&s"
-              alt=""
-              className="w-[84px] h-[84px] object cover"
-            />
-            <div className="flex flex-1 flex-col items-start justify-between">
-              <h6 className="text-lg font-bold leading-none">
-                Miami Dolphins won the match and officially qualified for the
-                final
-              </h6>
-              <div className="flex gap-2 items-center">
-                <p className="text-xs font-bold">New York, 22 August 2022</p>
-                <p className="text-xs font-normal text-[#88888c]">
-                  - 10 minutes ago
-                </p>
-              </div>
-            </div>
-          </div>
+    <div className="w-full flex gap-2.5">
+      <img
+        src={`${article?.urlToImage}`}
+        alt=""
+        className="w-[84px] h-[84px] object cover"
+      />
+      <div className="flex flex-1 flex-col items-start justify-between">
+        <h6 className="text-md font-bold leading-none">{article?.title}</h6>
+        <div className="flex gap-2 items-center">
+          <p className="text-xs font-bold">{formattedDate}</p>
+          <p className="text-xs font-normal text-[#88888c]">- {relativeTime}</p>
         </div>
       </div>
     </div>
   );
+};
+
+const HotTopic = () => {
+  const [articles, setArticles] = useState(null);
+
+  const { data, loading, error } = useFetchData(
+    "https://newsapi.org/v2/top-headlines",
+    {
+      country: "in",
+      category: "business",
+      pageSize: 5,
+    }
+  );
+
+  useEffect(() => {
+    if (data) setArticles(data?.articles);
+  }, [data]);
+
+  if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
+
+  if (loading)
+    return (
+      <p className="h-screen text-center font-bold text-6xl">LOADING....</p>
+    );
+
+  if (articles) {
+    const { formattedDate } = dateFormatting(articles[0]?.publishedAt);
+
+    return (
+      <div className="w-full flex justify-center mt-4">
+        <div className="w-full max-w-screen-xl flex flex-col justify-center py-4 mx-auto">
+          <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
+          <div className="w-full flex justify-around gap-6 py-4">
+            <img
+              src={`${articles[0]?.urlToImage}`}
+              alt=""
+              className="w-[48%] h-[100%] object-cover"
+            />
+
+            <div className="flex flex-1 flex-col gap-8">
+              <h2 className="text-4xl font-bold px-4">{articles[0]?.title}</h2>
+              <p className="text-xl font-bold p-4">{formattedDate}</p>
+              <div className="px-4 py-2">
+                <Link to="/singleBlog">
+                  <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
+                    Read More
+                    <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex gap-10 mt-6 py-4">
+            <SideArticle article={articles[1]} />
+            <SideArticle article={articles[2]} />
+            <SideArticle article={articles[3]} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default HotTopic;

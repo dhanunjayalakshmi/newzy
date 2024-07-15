@@ -1,4 +1,3 @@
-import React from "react";
 import HotTopic from "./HotTopic";
 import LatestRelease from "./LatestRelease";
 import NewsCategory from "./NewsCategory";
@@ -12,8 +11,8 @@ const Home = () => {
     <div className="w-full flex-1 flex-col items-center mt-4">
       <HotTopic />
       <LatestRelease />
-      {newsCategories?.map((category) => (
-        <NewsCategory categoryInfo={category} />
+      {newsCategories?.map((category, index) => (
+        <NewsCategory key={index} categoryInfo={category} />
       ))}
       <Subscribe />
     </div>
