@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import useFetchData from "../hooks/useFetchData";
 import { dateFormatting } from "../utils/dateformat";
+import { truncateText } from "../utils/textTruncation";
 
 const SideArticle = ({ article }) => {
   const { author, title, description, urlToImage, publishedAt, content } =
@@ -24,12 +24,18 @@ const SideArticle = ({ article }) => {
     >
       <div className="w-full flex gap-2.5">
         <img
-          src={urlToImage}
+          src={
+            urlToImage
+              ? urlToImage
+              : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+          }
           alt=""
           className="w-[84px] h-[84px] object cover"
         />
         <div className="flex flex-1 flex-col items-start justify-between">
-          <h6 className="text-md font-bold leading-none">{title}</h6>
+          <h6 className="text-lg font-bold leading-none">
+            {truncateText(title, 60)}
+          </h6>
           <div className="flex gap-2 items-center">
             <p className="text-xs font-bold">{formattedDate}</p>
             <p className="text-xs font-normal text-[#88888c]">
@@ -42,21 +48,12 @@ const SideArticle = ({ article }) => {
   );
 };
 
-const HotTopic = () => {
-  const [articles, setArticles] = useState(null);
-
-  const { data, loading, error } = useFetchData(
-    "https://newsapi.org/v2/top-headlines",
-    {
-      country: "in",
-      category: "business",
-      pageSize: 5,
-    }
-  );
+const HotTopic = ({ newsArticles, loading, error }) => {
+  const [articles, setArticles] = useState(newsArticles);
 
   useEffect(() => {
-    if (data) setArticles(data?.articles);
-  }, [data]);
+    if (newsArticles) setArticles(newsArticles);
+  }, [newsArticles]);
 
   if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
 
@@ -77,7 +74,11 @@ const HotTopic = () => {
           <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
           <div className="w-full flex justify-around gap-6 py-4">
             <img
-              src={urlToImage}
+              src={
+                urlToImage
+                  ? urlToImage
+                  : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+              }
               alt=""
               className="w-[48%] h-[100%] object-cover"
             />

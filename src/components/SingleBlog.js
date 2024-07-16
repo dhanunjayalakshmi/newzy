@@ -18,8 +18,8 @@ const SingleBlog = () => {
   const { title, content, description, urlToImage, publishedAt, author } =
     location?.state;
   const { formattedDate, relativeTime } = dateFormatting(publishedAt);
-  const [firstName, lastName] = author?.split(" ");
-  console.log(author);
+  const [firstName, lastName] = author?.split(" ") || ["Unknown", "Author"];
+  // console.log(author);
 
   const newsCategory = mockData?.data[0];
 
@@ -36,16 +36,25 @@ const SingleBlog = () => {
           </p>
         </div>
         <div className="w-[70%] flex flex-col gap-8 mt-6">
-          <img src={urlToImage} alt="" className="w-full object-cover" />
-          <h2 className="text-4xl font-bold py-4">{description}</h2>
-          <p className="font-normal text-md leading-8">{content}</p>
-          <p className="font-normal text-md leading-8">
+          <img
+            src={
+              urlToImage
+                ? urlToImage
+                : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+            }
+            alt=""
+            className="w-full object-cover"
+          />
+          {/* <h2 className="text-4xl font-bold py-4">{description}</h2> */}
+          <p className="font-normal text-lg leading-8">{description}</p>
+          <p className="font-normal text-lg leading-8">{content}</p>
+          <p className="font-normal text-lg leading-8">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book.
           </p>
-          <p className="font-normal text-md leading-8">
+          <p className="font-normal text-lg leading-8">
             It has survived not only five centuries, but also the leap into
             electronic typesetting, remaining essentially unchanged. It was
             popularised in the 1960s with the release of Letraset sheets
