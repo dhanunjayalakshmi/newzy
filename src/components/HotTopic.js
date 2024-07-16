@@ -6,23 +6,39 @@ import useFetchData from "../hooks/useFetchData";
 import { dateFormatting } from "../utils/dateformat";
 
 const SideArticle = ({ article }) => {
-  const { formattedDate, relativeTime } = dateFormatting(article?.publishedAt);
+  const { author, title, description, urlToImage, publishedAt, content } =
+    article;
+  const { formattedDate, relativeTime } = dateFormatting(publishedAt);
 
   return (
-    <div className="w-full flex gap-2.5">
-      <img
-        src={`${article?.urlToImage}`}
-        alt=""
-        className="w-[84px] h-[84px] object cover"
-      />
-      <div className="flex flex-1 flex-col items-start justify-between">
-        <h6 className="text-md font-bold leading-none">{article?.title}</h6>
-        <div className="flex gap-2 items-center">
-          <p className="text-xs font-bold">{formattedDate}</p>
-          <p className="text-xs font-normal text-[#88888c]">- {relativeTime}</p>
+    <Link
+      to="/singleBlog"
+      state={{
+        author: author,
+        title: title,
+        description: description,
+        urlToImage: urlToImage,
+        publishedAt: publishedAt,
+        content: content,
+      }}
+    >
+      <div className="w-full flex gap-2.5">
+        <img
+          src={urlToImage}
+          alt=""
+          className="w-[84px] h-[84px] object cover"
+        />
+        <div className="flex flex-1 flex-col items-start justify-between">
+          <h6 className="text-md font-bold leading-none">{title}</h6>
+          <div className="flex gap-2 items-center">
+            <p className="text-xs font-bold">{formattedDate}</p>
+            <p className="text-xs font-normal text-[#88888c]">
+              - {relativeTime}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -50,7 +66,10 @@ const HotTopic = () => {
     );
 
   if (articles) {
-    const { formattedDate } = dateFormatting(articles[0]?.publishedAt);
+    const { author, title, description, urlToImage, publishedAt, content } =
+      articles[0];
+
+    const { formattedDate } = dateFormatting(publishedAt);
 
     return (
       <div className="w-full flex justify-center mt-4">
@@ -58,16 +77,26 @@ const HotTopic = () => {
           <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
           <div className="w-full flex justify-around gap-6 py-4">
             <img
-              src={`${articles[0]?.urlToImage}`}
+              src={urlToImage}
               alt=""
               className="w-[48%] h-[100%] object-cover"
             />
 
             <div className="flex flex-1 flex-col gap-8">
-              <h2 className="text-4xl font-bold px-4">{articles[0]?.title}</h2>
+              <h2 className="text-4xl font-bold px-4">{title}</h2>
               <p className="text-xl font-bold p-4">{formattedDate}</p>
               <div className="px-4 py-2">
-                <Link to="/singleBlog">
+                <Link
+                  to="/singleBlog"
+                  state={{
+                    author: author,
+                    title: title,
+                    description: description,
+                    urlToImage: urlToImage,
+                    publishedAt: publishedAt,
+                    content: content,
+                  }}
+                >
                   <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
                     Read More
                     <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
