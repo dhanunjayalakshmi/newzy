@@ -76,7 +76,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-4xl py-4">Latest Release</h1>
             <div className="p-4">
-              <Link to="allBlog" state={{ articles }}>
+              <Link to="/allBlog" state={{ articles }}>
                 <button className="text-md py-2 px-8 bg-[#2b2d42] text-white border rounded-lg">
                   View All
                 </button>
@@ -130,63 +130,6 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
             <div className="flex flex-1 flex-col gap-10">
               <SideArticle article={articles[5]} />
               <SideArticle article={articles[6]} />
-              {/* <div className="flex justify-between gap-6">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GvxD5PPEPafQDfOVb9qBwuhQmwwG-H0hvg&s"
-                  alt=""
-                  className="w-[45%] object-cover"
-                />
-                <div className="flex flex-col gap-2">
-                  <p className="text-sm pt-2">New York, 19 april 2022</p>
-                  <h5 className="text-xl font-bold">
-                    Jhon Lorni has won 1st place in international match
-                  </h5>
-                  <p className="leading-6 text-sm text-[#88888c]">
-                    This is his first victory in the international olympics, so
-                    his name is quite explosive on the international scene
-                  </p>
-                  <div className="py-4">
-                    <Link to="/singleBlog">
-                      <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
-                        Read More
-                        <FontAwesomeIcon
-                          icon={faArrowTurnUp}
-                          className="mx-2"
-                        />
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between gap-6">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9GvxD5PPEPafQDfOVb9qBwuhQmwwG-H0hvg&s"
-                  alt=""
-                  className="w-[45%] object-cover"
-                />
-                <div className="flex flex-col gap-2">
-                  <p className="text-sm pt-2">Amsterdam, 23 april 2022</p>
-                  <h5 className="text-xl font-bold">
-                    The extinction of the Arabian turtle made the government...
-                  </h5>
-                  <p className="leading-6 text-sm text-[#88888c]">
-                    The jalabiya turtle is a very unique species because it is
-                    thought to have existed from ancient times, but has begun to
-                    become..
-                  </p>
-                  <div className="py-4">
-                    <Link to="/singleBlog">
-                      <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
-                        Read More
-                        <FontAwesomeIcon
-                          icon={faArrowTurnUp}
-                          className="mx-2"
-                        />
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
