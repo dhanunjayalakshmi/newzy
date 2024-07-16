@@ -6,8 +6,9 @@ import useScrollToTop from "../hooks/useScrollToTop";
 import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 
-const NewsGrid = ({ article }) => {
+const NewsGrid = ({ article, categoryInfo }) => {
   useScrollToTop();
+  const { category, newsColor } = categoryInfo;
   const { author, title, description, urlToImage, publishedAt, content } =
     article;
 
@@ -27,9 +28,10 @@ const NewsGrid = ({ article }) => {
         />
         <div className="w-full h-48 flex flex-col items-start absolute px-1 pt-3 gap-32 bottom-0 left-0 right-0 top-0 text-white bg-gradient-to-t from-black via-transparent to-transparent opacity-75">
           <button
-            className={`flex self-end font-bold items-center justify-center text-center cursor-pointer py-1 px-3 text-xs bg-red-600`}
+            style={{ backgroundColor: `#${newsColor}` }}
+            className="flex self-end font-bold items-center justify-center text-center cursor-pointer py-1 px-3 text-xs"
           >
-            General
+            {category}
           </button>
           <p className="text-sm font-semibold">{formattedDate}</p>
         </div>
@@ -71,7 +73,10 @@ const NewsGrid = ({ article }) => {
 
 const AllBlog = () => {
   const location = useLocation();
-  const articles = location?.state?.articles;
+  const {
+    articles,
+    categoryInfo = { category: "General", newsColor: "e2212f" },
+  } = location?.state;
 
   return (
     <div className="w-full max-w-screen-xl flex justify-center items-center mt-10 py-4 mx-auto">
@@ -102,7 +107,7 @@ const AllBlog = () => {
             <div className="grid grid-cols-3 gap-6">
               {articles?.map((article) => (
                 // console.log(article);
-                <NewsGrid article={article} />
+                <NewsGrid article={article} categoryInfo={categoryInfo} />
               ))}
             </div>
           </div>
