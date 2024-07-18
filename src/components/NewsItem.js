@@ -6,8 +6,7 @@ import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 
 const NewsItem = ({ newsInfo, categoryInfo }) => {
-  const { author, title, description, urlToImage, publishedAt, content } =
-    newsInfo;
+  const { title, description, urlToImage, publishedAt } = newsInfo;
 
   const { category, newsColor } = categoryInfo;
 
@@ -46,17 +45,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
               )}
         </p>
         <div className="py-4">
-          <Link
-            to="/singleBlog"
-            state={{
-              author: author,
-              title: title,
-              description: description,
-              urlToImage: urlToImage,
-              publishedAt: publishedAt,
-              content: content,
-            }}
-          >
+          <Link to={`/${category}/${title}`}>
             <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
               Read More
               <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />

@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { faArrowTurnUp, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
+import useFetchData from "../hooks/useFetchData";
+import { COLOR_CODES } from "../utils/constants";
 
 const NewsGrid = ({ article, categoryInfo }) => {
   useScrollToTop();
   const { category, newsColor } = categoryInfo;
-  const { author, title, description, urlToImage, publishedAt, content } =
-    article;
+  const { title, description, urlToImage, publishedAt } = article;
 
   const { formattedDate } = dateFormatting(publishedAt);
 
@@ -49,17 +50,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
               )}
         </p>
         <div className="py-2">
-          <Link
-            to="/singleBlog"
-            state={{
-              author: author,
-              title: title,
-              description: description,
-              urlToImage: urlToImage,
-              publishedAt: publishedAt,
-              content: content,
-            }}
-          >
+          <Link to={`/${category}/${title}`}>
             <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center">
               Read More
               <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
@@ -72,46 +63,70 @@ const NewsGrid = ({ article, categoryInfo }) => {
 };
 
 const AllBlog = () => {
-  const location = useLocation();
-  const {
-    articles,
-    categoryInfo = { category: "General", newsColor: "e2212f" },
-  } = location?.state;
+  const [articles, setArticles] = useState(null);
 
-  return (
-    <div className="w-full max-w-screen-xl flex justify-center items-center mt-10 py-4 mx-auto">
-      <div className="w-full flex flex-col items-center gap-6">
-        <div className="w-[48%] flex flex-col gap-10 text-center">
-          <h2 className="text-4xl font-semibold">
-            Read the latest news from around the world
-          </h2>
-          <label
-            htmlFor="search"
-            className="flex justify-between p-6 bg-[#f8f7fc] text-lg rounded-lg"
-          >
-            <input
-              type="search"
-              name="search"
-              id="search"
-              placeholder="Search News here..."
-              className="bg-[#f8f7fc] outline-none text-[#585f71]"
-            />
-            <button className="flex items-center gap-2 font-bold">
-              <span>Filter</span>
-              <FontAwesomeIcon icon={faFilter} />
-            </button>
-          </label>
-        </div>
-        <div className="flex justify-between gap-6 mt-10">
-          <div className="flex flex-1">
-            <div className="grid grid-cols-3 gap-6">
-              {articles?.map((article) => (
-                // console.log(article);
-                <NewsGrid article={article} categoryInfo={categoryInfo} />
-              ))}
-            </div>
+  const params = useParams();
+  const { category } = params;
+
+  const { data, loading, error } = useFetchData(
+    "https://newsapi.org/v2/top-headlines",
+    {
+      category: category,
+      pageSize: 30,
+    }
+  );
+
+  const color = COLOR_CODES[category];
+
+  const categoryInfo = { category: category, newsColor: color };
+
+  useEffect(() => {
+    if (data) {
+      setArticles(data?.articles);
+    }
+  }, [data]);
+
+  if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
+
+  if (loading)
+    return (
+      <p className="h-screen text-center font-bold text-6xl">LOADING....</p>
+    );
+
+  if (articles) {
+    return (
+      <div className="w-full max-w-screen-xl flex justify-center items-center mt-10 py-4 mx-auto">
+        <div className="w-full flex flex-col items-center gap-6">
+          <div className="w-[48%] flex flex-col gap-10 text-center">
+            <h2 className="text-4xl font-semibold">
+              Read the latest news from around the world
+            </h2>
+            <label
+              htmlFor="search"
+              className="flex justify-between p-6 bg-[#f8f7fc] text-lg rounded-lg"
+            >
+              <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="Search News here..."
+                className="bg-[#f8f7fc] outline-none text-[#585f71]"
+              />
+              <button className="flex items-center gap-2 font-bold">
+                <span>Filter</span>
+                <FontAwesomeIcon icon={faFilter} />
+              </button>
+            </label>
           </div>
-          {/* <div className="w-[28%] flex flex-col gap-2 items-center">
+          <div className="flex justify-between gap-6 mt-10">
+            <div className="flex flex-1">
+              <div className="grid grid-cols-3 gap-6">
+                {articles?.map((article) => (
+                  <NewsGrid article={article} categoryInfo={categoryInfo} />
+                ))}
+              </div>
+            </div>
+            {/* <div className="w-[28%] flex flex-col gap-2 items-center">
             <div className="flex justify-between gap-2">
               <NavLink
                 to="latest"
@@ -142,10 +157,11 @@ const AllBlog = () => {
               <Outlet />
             </div>
           </div> */}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default AllBlog;

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import NewsItem from "./NewsItem";
 import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
+import { COLOR_CODES } from "../utils/constants";
 
-const NewsCategory = ({ categoryInfo }) => {
-  const { category } = categoryInfo;
-
+const NewsCategory = ({ category }) => {
   const [newsData, setNewsData] = useState(null);
 
   const { data, loading, error } = useFetchData(
@@ -20,6 +19,10 @@ const NewsCategory = ({ categoryInfo }) => {
   useEffect(() => {
     if (data) setNewsData(data?.articles);
   }, [data]);
+
+  const color = COLOR_CODES[category];
+
+  const categoryInfo = { category: category, newsColor: color };
 
   if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
 
@@ -36,10 +39,7 @@ const NewsCategory = ({ categoryInfo }) => {
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-4xl">{category}</h1>
             <div className="p-4">
-              <Link
-                to="/allBlog"
-                state={{ articles: newsData, categoryInfo: categoryInfo }}
-              >
+              <Link to={`/${category}/viewAll`}>
                 <button className="text-md py-2 px-8 bg-[#2b2d42] text-white border rounded-lg">
                   View All
                 </button>

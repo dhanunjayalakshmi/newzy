@@ -4,36 +4,39 @@ import NewsCategory from "./NewsCategory";
 import Subscribe from "./Subscribe";
 import useFetchData from "../hooks/useFetchData";
 import { useEffect, useState } from "react";
+import { NEWS_CATEGORIES } from "../utils/constants";
 
 const Home = () => {
-  const newsCategories = [
-    { category: "Business", newsColor: "3d0ef9" },
-    { category: "Health", newsColor: "ad1bb0" },
-    { category: "Science", newsColor: "f9630e" },
-    { category: "Sports", newsColor: "1eb01b" },
-    { category: "Entertainment", newsColor: "3d0ef9" },
-    { category: "Technology", newsColor: "b01b40" },
-  ];
-  const [newsData, setNewsData] = useState(null);
+  const [hotTopicData, setHotTopicData] = useState(null);
+  const [latestReleaseData, setLatestReleaseData] = useState(null);
+
+  const newsCategories = NEWS_CATEGORIES;
+
   const { data, loading, error } = useFetchData(
     "https://newsapi.org/v2/top-headlines",
     {
-      country: "in",
       category: "general",
-      pageSize: 30,
+      pageSize: 7,
     }
   );
 
   useEffect(() => {
-    if (data) setNewsData(data?.articles);
+    if (data) {
+      setHotTopicData(data?.articles?.slice(0, 4));
+      setLatestReleaseData(data?.articles?.slice(4));
+    }
   }, [data]);
 
   return (
     <div className="w-full flex-1 flex-col items-center mt-4">
-      <HotTopic newsArticles={newsData} loading={loading} error={error} />
-      <LatestRelease newsArticles={newsData} loading={loading} error={error} />
-      {newsCategories?.map((categoryInfo, index) => (
-        <NewsCategory key={index} categoryInfo={categoryInfo} />
+      <HotTopic newsArticles={hotTopicData} loading={loading} error={error} />
+      <LatestRelease
+        newsArticles={latestReleaseData}
+        loading={loading}
+        error={error}
+      />
+      {newsCategories?.map((category, index) => (
+        <NewsCategory key={index} category={category} />
       ))}
       <Subscribe />
     </div>

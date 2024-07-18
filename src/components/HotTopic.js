@@ -6,22 +6,11 @@ import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 
 const SideArticle = ({ article }) => {
-  const { author, title, description, urlToImage, publishedAt, content } =
-    article;
+  const { title, urlToImage, publishedAt } = article;
   const { formattedDate, relativeTime } = dateFormatting(publishedAt);
 
   return (
-    <Link
-      to="/singleBlog"
-      state={{
-        author: author,
-        title: title,
-        description: description,
-        urlToImage: urlToImage,
-        publishedAt: publishedAt,
-        content: content,
-      }}
-    >
+    <Link to={`/General/${title}`}>
       <div className="w-full flex gap-2.5">
         <img
           src={
@@ -50,9 +39,15 @@ const SideArticle = ({ article }) => {
 
 const HotTopic = ({ newsArticles, loading, error }) => {
   const [articles, setArticles] = useState(newsArticles);
+  const [mainArticle, setMainArticle] = useState();
+  const [sideArticles, setSideArticles] = useState();
 
   useEffect(() => {
-    if (newsArticles) setArticles(newsArticles);
+    if (newsArticles) {
+      setArticles(newsArticles);
+      setMainArticle(newsArticles[0]);
+      setSideArticles(newsArticles?.slice(1));
+    }
   }, [newsArticles]);
 
   if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
@@ -63,8 +58,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
     );
 
   if (articles) {
-    const { author, title, description, urlToImage, publishedAt, content } =
-      articles[0];
+    const { title, urlToImage, publishedAt } = mainArticle;
 
     const { formattedDate } = dateFormatting(publishedAt);
 
@@ -73,31 +67,23 @@ const HotTopic = ({ newsArticles, loading, error }) => {
         <div className="w-full max-w-screen-xl flex flex-col justify-center py-4 mx-auto">
           <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
           <div className="w-full flex justify-around gap-6 py-4">
-            <img
-              src={
-                urlToImage
-                  ? urlToImage
-                  : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-              }
-              alt=""
-              className="w-[48%] h-[100%] object-cover"
-            />
+            <div className="w-[48%] h-[100%]">
+              <img
+                src={
+                  urlToImage
+                    ? urlToImage
+                    : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+                }
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-            <div className="flex flex-1 flex-col gap-8">
+            <div className="flex flex-1 flex-col gap-8 justify-center">
               <h2 className="text-4xl font-bold px-4">{title}</h2>
               <p className="text-xl font-bold p-4">{formattedDate}</p>
               <div className="px-4 py-2">
-                <Link
-                  to="/singleBlog"
-                  state={{
-                    author: author,
-                    title: title,
-                    description: description,
-                    urlToImage: urlToImage,
-                    publishedAt: publishedAt,
-                    content: content,
-                  }}
-                >
+                <Link to={`/General/${title}`}>
                   <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
                     Read More
                     <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
@@ -107,9 +93,9 @@ const HotTopic = ({ newsArticles, loading, error }) => {
             </div>
           </div>
           <div className="w-full flex gap-10 mt-6 py-4">
-            <SideArticle article={articles[1]} />
-            <SideArticle article={articles[2]} />
-            <SideArticle article={articles[3]} />
+            {sideArticles?.map((sideArticle, index) => (
+              <SideArticle key={index} article={sideArticle} />
+            ))}
           </div>
         </div>
       </div>

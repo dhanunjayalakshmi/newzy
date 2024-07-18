@@ -1,11 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NewsCategory from "./NewsCategory";
-import mockData from "../utils/mockData.json";
 
 const Register = () => {
-  const newsCategory = mockData?.data[0];
-
   return (
     <div className="w-full max-w-screen-xl flex justify-center items-center mt-6 mx-auto ">
       <div className="flex flex-col gap-12 items-center">
@@ -77,7 +74,7 @@ const Register = () => {
             </p>
           </div>
         </div>
-        <NewsCategory categoryInfo={newsCategory} />
+        <NewsCategory category="General" />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Navigate, BrowserRouter as Router, useRoutes } from "react-router-dom";
+import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -7,7 +7,7 @@ import Register from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
 import UpdatePassword from "./components/UpdatePassword";
 import AllBlog from "./components/AllBlog";
-import AllBlogSidebar from "./components/AllBlogSidebar";
+// import AllBlogSidebar from "./components/AllBlogSidebar";
 import SingleBlog from "./components/SingleBlog";
 
 const RoutesConfig = () => {
@@ -17,15 +17,16 @@ const RoutesConfig = () => {
     { path: "/register", element: <Register /> },
     { path: "/forgotPassword", element: <ForgotPassword /> },
     { path: "/updatePassword", element: <UpdatePassword /> },
-    {
-      path: "/allBlog",
-      element: <AllBlog />,
-      children: [
-        { path: "", element: <Navigate replace to="latest" /> },
-        { path: ":blogFilter", element: <AllBlogSidebar /> },
-      ],
-    },
-    { path: "/singleBlog", element: <SingleBlog /> },
+    // {
+    //   path: "/allBlog/:category",
+    //   element: <AllBlog />,
+    //   children: [
+    //     { path: "", element: <Navigate replace to="latest" /> },
+    //     { path: ":blogFilter", element: <AllBlogSidebar /> },
+    //   ],
+    // },
+    { path: "/:category/viewAll", element: <AllBlog /> },
+    { path: "/:category/:title", element: <SingleBlog /> },
   ]);
 };
 
