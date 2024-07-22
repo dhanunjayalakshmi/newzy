@@ -17,6 +17,8 @@ const RoutesConfig = () => {
     { path: "/register", element: <Register /> },
     { path: "/forgotPassword", element: <ForgotPassword /> },
     { path: "/updatePassword", element: <UpdatePassword /> },
+    { path: "/:category/view-all", element: <AllBlog /> },
+    { path: "/:category/:title", element: <SingleBlog /> },
     // {
     //   path: "/allBlog/:category",
     //   element: <AllBlog />,
@@ -25,8 +27,6 @@ const RoutesConfig = () => {
     //     { path: ":blogFilter", element: <AllBlogSidebar /> },
     //   ],
     // },
-    { path: "/:category/viewAll", element: <AllBlog /> },
-    { path: "/:category/:title", element: <SingleBlog /> },
   ]);
 };
 

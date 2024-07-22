@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { dateFormatting } from "../utils/dateformat";
+import { NEWS_IMAGES } from "../utils/constants";
 
 const NewsComponent = ({ article }) => {
   const { title, description, urlToImage, publishedAt } = article;
@@ -14,11 +15,7 @@ const NewsComponent = ({ article }) => {
     <div className="w-full flex flex-col gap-4">
       <div className="h-44 relative">
         <img
-          src={
-            urlToImage
-              ? urlToImage
-              : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-          }
+          src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
           alt=""
           className="w-full h-44 object-cover"
         />

@@ -10,12 +10,14 @@ import useScrollToTop from "../hooks/useScrollToTop";
 import { useParams } from "react-router-dom";
 import { dateFormatting } from "../utils/dateformat";
 import useFetchData from "../hooks/useFetchData";
+import { NEWS_IMAGES } from "../utils/constants";
 
 const SingleBlog = () => {
+  const [newsArticle, setNewsArticle] = useState();
   const params = useParams();
+  // console.log(params);
 
   useScrollToTop();
-  const [newsArticle, setNewsArticle] = useState();
   const { data, loading, error } = useFetchData(
     "https://newsapi.org/v2/top-headlines",
     {
@@ -62,11 +64,7 @@ const SingleBlog = () => {
           </div>
           <div className="w-[70%] flex flex-col gap-8 mt-6">
             <img
-              src={
-                urlToImage
-                  ? urlToImage
-                  : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-              }
+              src={urlToImage ? urlToImage : NEWS_IMAGES[params?.category]}
               alt=""
               className="w-full object-cover"
             />

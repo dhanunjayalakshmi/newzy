@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
+import { NEWS_IMAGES } from "../utils/constants";
 
 const NewsItem = ({ newsInfo, categoryInfo }) => {
   const { title, description, urlToImage, publishedAt } = newsInfo;
@@ -16,11 +17,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
     <div className="w-full flex flex-col gap-8">
       <div className="h-[44%] relative">
         <img
-          src={
-            urlToImage
-              ? urlToImage
-              : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-          }
+          src={urlToImage ? urlToImage : NEWS_IMAGES[category]}
           alt=""
           className="w-full h-64 object-cover"
         />
@@ -35,7 +32,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <h3 className="text-2xl font-bold">{truncateText(title, 70)}</h3>
+        <h3 className="text-2xl font-bold">{truncateText(title, 55)}</h3>
         <p className="leading-6 text-sm h-16 text-[#88888c]">
           {description
             ? truncateText(description, 150)

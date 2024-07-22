@@ -4,6 +4,7 @@ import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
+import { NEWS_IMAGES } from "../utils/constants";
 
 const SideArticle = ({ article }) => {
   const { title, urlToImage, publishedAt } = article;
@@ -13,11 +14,7 @@ const SideArticle = ({ article }) => {
     <Link to={`/General/${title}`}>
       <div className="w-full flex gap-2.5">
         <img
-          src={
-            urlToImage
-              ? urlToImage
-              : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-          }
+          src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
           alt=""
           className="w-[84px] h-[84px] object cover"
         />
@@ -69,11 +66,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
           <div className="w-full flex justify-around gap-6 py-4">
             <div className="w-[48%] h-[100%]">
               <img
-                src={
-                  urlToImage
-                    ? urlToImage
-                    : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-                }
+                src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
                 alt=""
                 className="w-full h-full object-cover"
               />

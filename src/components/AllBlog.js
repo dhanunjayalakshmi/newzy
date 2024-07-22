@@ -6,7 +6,7 @@ import useScrollToTop from "../hooks/useScrollToTop";
 import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import useFetchData from "../hooks/useFetchData";
-import { COLOR_CODES } from "../utils/constants";
+import { COLOR_CODES, NEWS_IMAGES } from "../utils/constants";
 
 const NewsGrid = ({ article, categoryInfo }) => {
   useScrollToTop();
@@ -15,15 +15,15 @@ const NewsGrid = ({ article, categoryInfo }) => {
 
   const { formattedDate } = dateFormatting(publishedAt);
 
+  const handleClick = () => {
+    console.log(category, title);
+  };
+
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="h-[40%] relative">
         <img
-          src={
-            urlToImage
-              ? urlToImage
-              : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-          }
+          src={urlToImage ? urlToImage : NEWS_IMAGES[category]}
           alt=""
           className="w-full h-48 object-cover"
         />
@@ -51,7 +51,10 @@ const NewsGrid = ({ article, categoryInfo }) => {
         </p>
         <div className="py-2">
           <Link to={`/${category}/${title}`}>
-            <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center">
+            <button
+              className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center"
+              onClick={handleClick}
+            >
               Read More
               <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
             </button>

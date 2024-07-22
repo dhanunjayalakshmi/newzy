@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
+import { NEWS_IMAGES } from "../utils/constants";
 
 const SideArticle = ({ article }) => {
   const { title, description, urlToImage, publishedAt } = article;
@@ -12,11 +13,7 @@ const SideArticle = ({ article }) => {
   return (
     <div className="flex justify-between gap-6">
       <img
-        src={
-          urlToImage
-            ? urlToImage
-            : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-        }
+        src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
         alt=""
         className="w-[45%] object-cover"
       />
@@ -24,7 +21,12 @@ const SideArticle = ({ article }) => {
         <p className="text-sm pt-2">{formattedDate}</p>
         <h5 className="text-xl font-bold">{truncateText(title, 55)}</h5>
         <p className="leading-6 text-sm text-[#88888c]">
-          {truncateText(description, 100)}
+          {description
+            ? truncateText(description, 150)
+            : truncateText(
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos minus velit, inventore, ut culpa explicabo cupiditate tempora excepturi perferendis consequatur ea dignissimos corporis non unde soluta blanditiis perspiciatis animi nostrum?",
+                150
+              )}
         </p>
         <div className="py-4">
           <Link to={`/general/${title}`}>
@@ -70,7 +72,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-4xl py-4">Latest Release</h1>
             <div className="p-4">
-              <Link to="/General/viewAll">
+              <Link to="/General/view-all">
                 <button className="text-md py-2 px-8 bg-[#2b2d42] text-white border rounded-lg">
                   View All
                 </button>
@@ -81,11 +83,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
             <div className="w-[44%] flex flex-col gap-8">
               <div className="h-64 relative">
                 <img
-                  src={
-                    urlToImage
-                      ? urlToImage
-                      : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
-                  }
+                  src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
                   alt=""
                   className="w-full h-full object-cover"
                 />
@@ -99,7 +97,12 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
               <div className="flex flex-col gap-4">
                 <h3 className="text-2xl font-bold">{title}</h3>
                 <p className="leading-6 text-sm text-[#88888c]">
-                  {description}
+                  {description
+                    ? truncateText(description, 150)
+                    : truncateText(
+                        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos minus velit, inventore, ut culpa explicabo cupiditate tempora excepturi perferendis consequatur ea dignissimos corporis non unde soluta blanditiis perspiciatis animi nostrum?",
+                        150
+                      )}
                 </p>
                 <div className="py-4">
                   <Link to={`/General/${title}`}>
