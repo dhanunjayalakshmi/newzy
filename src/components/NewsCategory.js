@@ -3,6 +3,7 @@ import NewsItem from "./NewsItem";
 import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { COLOR_CODES } from "../utils/constants";
+import ShimmerUI from "./ShimmerUI";
 
 const NewsCategory = ({ category }) => {
   const [newsData, setNewsData] = useState(null);
@@ -26,10 +27,7 @@ const NewsCategory = ({ category }) => {
 
   if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
 
-  if (loading)
-    return (
-      <p className="h-screen text-center font-bold text-6xl">LOADING....</p>
-    );
+  if (loading) return <ShimmerUI />;
 
   if (newsData) {
     const slicedNews = newsData?.slice(0, 3);

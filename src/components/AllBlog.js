@@ -7,6 +7,7 @@ import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import useFetchData from "../hooks/useFetchData";
 import { COLOR_CODES, NEWS_IMAGES } from "../utils/constants";
+import ShimmerUI from "./ShimmerUI";
 
 const NewsGrid = ({ article, categoryInfo }) => {
   useScrollToTop();
@@ -91,10 +92,7 @@ const AllBlog = () => {
 
   if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
 
-  if (loading)
-    return (
-      <p className="h-screen text-center font-bold text-6xl">LOADING....</p>
-    );
+  if (loading) return <ShimmerUI />;
 
   if (articles) {
     return (

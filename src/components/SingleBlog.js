@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { dateFormatting } from "../utils/dateformat";
 import useFetchData from "../hooks/useFetchData";
 import { NEWS_IMAGES } from "../utils/constants";
+import ShimmerUI from "./ShimmerUI";
 
 const SingleBlog = () => {
   const [newsArticle, setNewsArticle] = useState();
@@ -39,10 +40,7 @@ const SingleBlog = () => {
       </p>
     );
 
-  if (loading)
-    return (
-      <p className="h-[30%] text-center font-bold text-6xl">LOADING....</p>
-    );
+  if (loading) return <ShimmerUI />;
 
   if (newsArticle) {
     const { title, content, description, urlToImage, publishedAt, author } =

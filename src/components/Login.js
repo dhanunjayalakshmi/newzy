@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { dateFormatting } from "../utils/dateformat";
 import { NEWS_IMAGES } from "../utils/constants";
+import ShimmerUI from "./ShimmerUI";
 
 const NewsComponent = ({ article }) => {
   const { title, description, urlToImage, publishedAt } = article;
@@ -64,10 +65,7 @@ const Login = () => {
 
   if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
 
-  if (loading)
-    return (
-      <p className="h-screen text-center font-bold text-6xl">LOADING....</p>
-    );
+  if (loading) return <ShimmerUI />;
 
   if (articles) {
     return (
