@@ -6,6 +6,7 @@ import useFetchData from "../hooks/useFetchData";
 import { dateFormatting } from "../utils/dateformat";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
+import ErrorPage from "./ErrorPage";
 
 const NewsComponent = ({ article }) => {
   const { title, description, urlToImage, publishedAt } = article;
@@ -63,7 +64,7 @@ const Login = () => {
     }
   }, [data]);
 
-  if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
+  if (error) return <ErrorPage />;
 
   if (loading) return <ShimmerUI />;
 

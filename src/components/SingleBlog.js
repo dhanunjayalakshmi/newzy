@@ -12,6 +12,7 @@ import { dateFormatting } from "../utils/dateformat";
 import useFetchData from "../hooks/useFetchData";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
+import ErrorPage from "./ErrorPage";
 
 const SingleBlog = () => {
   const [newsArticle, setNewsArticle] = useState();
@@ -28,17 +29,12 @@ const SingleBlog = () => {
     }
   );
   useEffect(() => {
-    if (data) {
+    if (data?.articles?.length > 0) {
       setNewsArticle(data?.articles[0]);
     }
   }, [data]);
 
-  if (error)
-    return (
-      <p className="h-[30%] text-center font-bold text-4xl p-4">
-        Please wait ....
-      </p>
-    );
+  if (error || data?.articles?.length === 0) return <ErrorPage />;
 
   if (loading) return <ShimmerUI />;
 

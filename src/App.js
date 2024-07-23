@@ -9,6 +9,7 @@ import UpdatePassword from "./components/UpdatePassword";
 import AllBlog from "./components/AllBlog";
 // import AllBlogSidebar from "./components/AllBlogSidebar";
 import SingleBlog from "./components/SingleBlog";
+import ErrorPage from "./components/ErrorPage";
 
 const RoutesConfig = () => {
   return useRoutes([
@@ -19,6 +20,7 @@ const RoutesConfig = () => {
     { path: "/updatePassword", element: <UpdatePassword /> },
     { path: "/:category/view-all", element: <AllBlog /> },
     { path: "/:category/:title", element: <SingleBlog /> },
+    { path: "", element: <ErrorPage /> },
     // {
     //   path: "/allBlog/:category",
     //   element: <AllBlog />,

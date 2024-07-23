@@ -6,6 +6,7 @@ import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
+import ErrorPage from "./ErrorPage";
 
 const SideArticle = ({ article }) => {
   const { title, urlToImage, publishedAt } = article;
@@ -48,7 +49,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
     }
   }, [newsArticles]);
 
-  if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
+  if (error) return <ErrorPage />;
 
   if (loading) return <ShimmerUI />;
 

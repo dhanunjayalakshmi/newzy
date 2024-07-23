@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { COLOR_CODES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
+import ErrorPage from "./ErrorPage";
 
 const NewsCategory = ({ category }) => {
   const [newsData, setNewsData] = useState(null);
@@ -25,7 +26,7 @@ const NewsCategory = ({ category }) => {
 
   const categoryInfo = { category: category, newsColor: color };
 
-  if (error) return <p className="font-bold text-4xl p-4">Please wait ....</p>;
+  if (error) return <ErrorPage />;
 
   if (loading) return <ShimmerUI />;
 
