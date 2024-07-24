@@ -9,6 +9,7 @@ import useFetchData from "../hooks/useFetchData";
 import { COLOR_CODES, NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
 import ErrorPage from "./ErrorPage";
+import Pagination from "./Pagination";
 
 const NewsGrid = ({ article, categoryInfo }) => {
   useScrollToTop();
@@ -69,6 +70,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
 
 const AllBlog = () => {
   const [articles, setArticles] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const params = useParams();
   const { category } = params;
@@ -81,13 +83,14 @@ const AllBlog = () => {
     }
   );
 
-  const color = COLOR_CODES[category];
-
-  const categoryInfo = { category: category, newsColor: color };
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     if (data) {
       setArticles(data?.articles);
+      setCurrentPage(1);
     }
   }, [data]);
 
@@ -96,6 +99,14 @@ const AllBlog = () => {
   if (loading) return <ShimmerUI />;
 
   if (articles) {
+    const color = COLOR_CODES[category];
+    const categoryInfo = { category: category, newsColor: color };
+
+    const totalPages = Math.ceil(articles.length / 6);
+    const indexOfLastItem = currentPage * 6;
+    const indexOfFirstItem = indexOfLastItem - 6;
+    const currentItems = articles.slice(indexOfFirstItem, indexOfLastItem);
+
     return (
       <div className="w-full max-w-screen-xl flex justify-center items-center mt-10 py-4 mx-auto">
         <div className="w-full flex flex-col items-center gap-6">
@@ -122,13 +133,19 @@ const AllBlog = () => {
           </div>
           <div className="flex justify-between gap-6 mt-10">
             <div className="flex flex-1">
-              <div className="grid grid-cols-3 gap-6">
-                {articles?.map((article) => (
-                  <NewsGrid article={article} categoryInfo={categoryInfo} />
-                ))}
+              <div className="flex flex-col">
+                <div className="grid grid-cols-3 gap-6">
+                  {currentItems?.map((article) => (
+                    <NewsGrid article={article} categoryInfo={categoryInfo} />
+                  ))}
+                </div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
               </div>
-            </div>
-            {/* <div className="w-[28%] flex flex-col gap-2 items-center">
+              {/* <div className="w-[28%] flex flex-col gap-2 items-center">
             <div className="flex justify-between gap-2">
               <NavLink
                 to="latest"
@@ -159,6 +176,7 @@ const AllBlog = () => {
               <Outlet />
             </div>
           </div> */}
+            </div>
           </div>
         </div>
       </div>
