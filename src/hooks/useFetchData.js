@@ -33,7 +33,7 @@ const useFetchData = (baseUrl, params = {}) => {
     };
 
     fetchData();
-  }, [baseUrl, JSON.stringify(params)]); // Dependency array includes URL and options to refetch when they change
+  }, [baseUrl, params, apiKey]); // Dependency array includes URL and options to refetch when they change
 
   return { data, loading, error };
 };
