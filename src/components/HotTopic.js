@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { dateFormatting } from "../utils/dateformat";
+import { dateFormatting2 } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
 import ErrorPage from "./ErrorPage";
 
 const SideArticle = ({ article }) => {
-  const { title, urlToImage, publishedAt } = article;
-  const { formattedDate, relativeTime } = dateFormatting(publishedAt);
+  const { title, image, published } = article;
+  const { formattedDate, relativeTime } = dateFormatting2(published);
 
   return (
-    <Link to={`/General/${title}`}>
+    <Link to={`/general/${title}`}>
       <div className="w-full flex gap-2.5">
         <img
-          src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
+          src={image ? image : NEWS_IMAGES["General"]}
           alt=""
           className="w-[84px] h-[84px] object cover"
         />
@@ -54,9 +54,9 @@ const HotTopic = ({ newsArticles, loading, error }) => {
   if (loading) return <ShimmerUI />;
 
   if (articles) {
-    const { title, urlToImage, publishedAt } = mainArticle;
+    const { title, image, published } = mainArticle;
 
-    const { formattedDate } = dateFormatting(publishedAt);
+    const { formattedDate } = dateFormatting2(published);
 
     return (
       <div className="w-full flex justify-center mt-4">
@@ -65,7 +65,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
           <div className="w-full flex justify-around gap-6 py-4">
             <div className="w-[48%] h-[100%]">
               <img
-                src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
+                src={image ? image : NEWS_IMAGES["General"]}
                 alt=""
                 className="w-full h-full object-cover"
               />
@@ -75,7 +75,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
               <h2 className="text-4xl font-bold px-4">{title}</h2>
               <p className="text-xl font-bold p-4">{formattedDate}</p>
               <div className="px-4 py-2">
-                <Link to={`/General/${title}`}>
+                <Link to={`/general/${title}`}>
                   <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
                     Read More
                     <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
@@ -85,8 +85,8 @@ const HotTopic = ({ newsArticles, loading, error }) => {
             </div>
           </div>
           <div className="w-full flex gap-10 mt-6 py-4">
-            {sideArticles?.map((sideArticle, index) => (
-              <SideArticle key={index} article={sideArticle} />
+            {sideArticles?.map((sideArticle) => (
+              <SideArticle key={sideArticle?.id} article={sideArticle} />
             ))}
           </div>
         </div>

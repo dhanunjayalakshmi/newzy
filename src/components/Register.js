@@ -74,7 +74,7 @@ const Register = () => {
             </p>
           </div>
         </div>
-        <NewsCategory category="General" />
+        <NewsCategory category="general" />
       </div>
     </div>
   );

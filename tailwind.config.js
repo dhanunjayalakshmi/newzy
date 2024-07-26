@@ -12,7 +12,7 @@ module.exports = {
         },
       },
       animation: {
-        shimmer: "shimmer 2s linear infinite",
+        shimmer: "shimmer 1s linear infinite",
       },
     },
     fontFamily: {

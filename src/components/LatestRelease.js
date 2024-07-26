@@ -2,20 +2,20 @@ import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { dateFormatting } from "../utils/dateformat";
+import { dateFormatting2 } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
 import ErrorPage from "./ErrorPage";
 
 const SideArticle = ({ article }) => {
-  const { title, description, urlToImage, publishedAt } = article;
+  const { title, description, image, published } = article;
 
-  const { formattedDate } = dateFormatting(publishedAt);
+  const { formattedDate } = dateFormatting2(published);
   return (
     <div className="flex justify-between gap-6">
       <img
-        src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
+        src={image ? image : NEWS_IMAGES["General"]}
         alt=""
         className="w-[45%] object-cover"
       />
@@ -61,9 +61,9 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
   if (loading) return <ShimmerUI />;
 
   if (articles) {
-    const { title, description, urlToImage, publishedAt } = mainArticle;
+    const { title, description, image, published } = mainArticle;
 
-    const { formattedDate } = dateFormatting(publishedAt);
+    const { formattedDate } = dateFormatting2(published);
 
     return (
       <div className="w-full flex justify-center mt-10">
@@ -71,7 +71,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-4xl py-4">Latest Release</h1>
             <div className="p-4">
-              <Link to="/General/view-all">
+              <Link to="/general/view-all">
                 <button className="text-md py-2 px-8 bg-[#2b2d42] text-white border rounded-lg">
                   View All
                 </button>
@@ -82,7 +82,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
             <div className="w-[44%] flex flex-col gap-8">
               <div className="h-64 relative">
                 <img
-                  src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
+                  src={image ? image : NEWS_IMAGES["General"]}
                   alt=""
                   className="w-full h-full object-cover"
                 />
@@ -104,7 +104,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
                       )}
                 </p>
                 <div className="py-4">
-                  <Link to={`/General/${title}`}>
+                  <Link to={`/general/${title}`}>
                     <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
                       Read More
                       <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
@@ -114,8 +114,8 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
               </div>
             </div>
             <div className="flex flex-1 flex-col gap-10">
-              {sideArticles?.map((sideArticle, index) => (
-                <SideArticle key={index} article={sideArticle} />
+              {sideArticles?.map((sideArticle) => (
+                <SideArticle key={sideArticle?.id} article={sideArticle} />
               ))}
             </div>
           </div>
