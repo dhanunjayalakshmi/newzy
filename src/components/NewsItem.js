@@ -17,7 +17,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
     <div className="w-full flex flex-col gap-8">
       <div className="h-[44%] relative">
         <img
-          src={image ? image : NEWS_IMAGES[category]}
+          src={image?.length > 10 ? image : NEWS_IMAGES[category]}
           alt=""
           className="w-full h-64 object-cover"
         />

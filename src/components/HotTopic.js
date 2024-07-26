@@ -16,7 +16,7 @@ const SideArticle = ({ article }) => {
     <Link to={`/general/${title}`}>
       <div className="w-full flex gap-2.5">
         <img
-          src={image ? image : NEWS_IMAGES["General"]}
+          src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
           alt=""
           className="w-[84px] h-[84px] object cover"
         />
@@ -65,7 +65,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
           <div className="w-full flex justify-around gap-6 py-4">
             <div className="w-[48%] h-[100%]">
               <img
-                src={image ? image : NEWS_IMAGES["General"]}
+                src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
                 alt=""
                 className="w-full h-full object-cover"
               />

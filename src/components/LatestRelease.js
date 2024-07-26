@@ -15,7 +15,7 @@ const SideArticle = ({ article }) => {
   return (
     <div className="flex justify-between gap-6">
       <img
-        src={image ? image : NEWS_IMAGES["General"]}
+        src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
         alt=""
         className="w-[45%] object-cover"
       />
@@ -82,7 +82,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
             <div className="w-[44%] flex flex-col gap-8">
               <div className="h-64 relative">
                 <img
-                  src={image ? image : NEWS_IMAGES["General"]}
+                  src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
                   alt=""
                   className="w-full h-full object-cover"
                 />
