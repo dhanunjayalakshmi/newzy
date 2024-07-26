@@ -3,21 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
-import { dateFormatting } from "../utils/dateformat";
+import { dateFormatting2 } from "../utils/dateformat";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
 import ErrorPage from "./ErrorPage";
 
 const NewsComponent = ({ article }) => {
-  const { title, description, urlToImage, publishedAt } = article;
+  const { title, description, image, published } = article;
 
-  const { formattedDate } = dateFormatting(publishedAt);
+  const { formattedDate } = dateFormatting2(published);
 
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="h-44 relative">
         <img
-          src={urlToImage ? urlToImage : NEWS_IMAGES["General"]}
+          src={image ? image : NEWS_IMAGES["General"]}
           alt=""
           className="w-full h-44 object-cover"
         />
@@ -35,7 +35,7 @@ const NewsComponent = ({ article }) => {
         <h3 className="text-sm font-bold">{title}</h3>
         <p className="leading-6 text-xs text-[#88888c]">{description}</p>
         <div className="py-4">
-          <Link to={`/General/${title}`}>
+          <Link to={`/general/${title}`}>
             <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg">
               Read More
               <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
@@ -51,16 +51,16 @@ const Login = () => {
   const [articles, setArticles] = useState(null);
 
   const { data, loading, error } = useFetchData(
-    "https://newsapi.org/v2/top-headlines",
+    "https://api.currentsapi.services/v1/latest-news",
     {
       category: "general",
-      pageSize: 2,
+      page_size: 2,
     }
   );
 
   useEffect(() => {
     if (data) {
-      setArticles(data?.articles);
+      setArticles(data?.news);
     }
   }, [data]);
 
@@ -77,8 +77,8 @@ const Login = () => {
               Welcome back, there is the latest news today !!
             </h1>
             <div className="flex justify-between gap-4 py-8">
-              {articles?.map((article, index) => (
-                <NewsComponent key={index} article={article} />
+              {articles?.map((article) => (
+                <NewsComponent key={article?.id} article={article} />
               ))}
               {/* <NewsComponent />
               <NewsComponent /> */}

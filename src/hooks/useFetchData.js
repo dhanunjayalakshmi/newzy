@@ -13,14 +13,17 @@ const useFetchData = (baseUrl, params = {}) => {
 
     const fetchData = async () => {
       setLoading(true);
+
       try {
         const response = await axios.get(baseUrl, {
           params: {
             ...params,
-            country: "in",
+            country: "us",
+            language: "en",
             apiKey: apiKey,
           },
         });
+
         setData(response?.data);
       } catch (error) {
         setError(error);

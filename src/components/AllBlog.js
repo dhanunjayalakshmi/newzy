@@ -3,7 +3,7 @@ import { faArrowTurnUp, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useParams } from "react-router-dom";
 import useScrollToTop from "../hooks/useScrollToTop";
-import { dateFormatting } from "../utils/dateformat";
+import { dateFormatting2 } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import useFetchData from "../hooks/useFetchData";
 import { COLOR_CODES, NEWS_IMAGES } from "../utils/constants";
@@ -14,9 +14,9 @@ import Pagination from "./Pagination";
 const NewsGrid = ({ article, categoryInfo }) => {
   useScrollToTop();
   const { category, newsColor } = categoryInfo;
-  const { title, description, urlToImage, publishedAt } = article;
+  const { title, description, image, published } = article;
 
-  const { formattedDate } = dateFormatting(publishedAt);
+  const { formattedDate } = dateFormatting2(published);
 
   const handleClick = () => {
     console.log(category, title);
@@ -26,7 +26,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
     <div className="w-full flex flex-col gap-8">
       <div className="h-[40%] relative">
         <img
-          src={urlToImage ? urlToImage : NEWS_IMAGES[category]}
+          src={image ? image : NEWS_IMAGES[category]}
           alt=""
           className="w-full h-48 object-cover"
         />
@@ -35,7 +35,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
             style={{ backgroundColor: `#${newsColor}` }}
             className="flex self-end font-bold items-center justify-center text-center cursor-pointer py-1 px-3 text-xs"
           >
-            {category}
+            {category[0].toUpperCase() + category?.slice(1)}
           </button>
           <p className="text-sm font-semibold">{formattedDate}</p>
         </div>
@@ -76,10 +76,10 @@ const AllBlog = () => {
   const { category } = params;
 
   const { data, loading, error } = useFetchData(
-    "https://newsapi.org/v2/top-headlines",
+    "https://api.currentsapi.services/v1/latest-news",
     {
       category: category,
-      pageSize: 30,
+      page_size: 30,
     }
   );
 
@@ -89,7 +89,7 @@ const AllBlog = () => {
 
   useEffect(() => {
     if (data) {
-      setArticles(data?.articles);
+      setArticles(data?.news);
       setCurrentPage(1);
     }
   }, [data]);
@@ -136,7 +136,11 @@ const AllBlog = () => {
               <div className="flex flex-col">
                 <div className="grid grid-cols-3 gap-6">
                   {currentItems?.map((article) => (
-                    <NewsGrid article={article} categoryInfo={categoryInfo} />
+                    <NewsGrid
+                      key={article?.id}
+                      article={article}
+                      categoryInfo={categoryInfo}
+                    />
                   ))}
                 </div>
                 <Pagination

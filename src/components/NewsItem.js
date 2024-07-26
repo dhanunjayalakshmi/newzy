@@ -2,22 +2,22 @@ import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import { dateFormatting } from "../utils/dateformat";
+import { dateFormatting2 } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import { NEWS_IMAGES } from "../utils/constants";
 
 const NewsItem = ({ newsInfo, categoryInfo }) => {
-  const { title, description, urlToImage, publishedAt } = newsInfo;
+  const { title, description, image, published } = newsInfo;
 
   const { category, newsColor } = categoryInfo;
 
-  const { formattedDate } = dateFormatting(publishedAt);
+  const { formattedDate } = dateFormatting2(published);
 
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="h-[44%] relative">
         <img
-          src={urlToImage ? urlToImage : NEWS_IMAGES[category]}
+          src={image ? image : NEWS_IMAGES[category]}
           alt=""
           className="w-full h-64 object-cover"
         />
@@ -26,7 +26,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
             style={{ backgroundColor: `#${newsColor}` }}
             className={`flex self-end font-bold items-center justify-center text-center cursor-pointer py-1 px-3 text-md `}
           >
-            {category}
+            {category[0].toUpperCase() + category?.slice(1)}
           </button>
           <p className="text-sm font-normal">{formattedDate}</p>
         </div>

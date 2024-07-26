@@ -20,7 +20,7 @@ const Header = () => {
 
         <ul className="flex gap-2 text-lg font-semibold ml-40">
           <Link
-            to="/Business/view-all"
+            to="/business/view-all"
             className={
               checkActive("Business") ? "bg-white p-2 text-black" : "p-2"
             }
@@ -28,7 +28,7 @@ const Header = () => {
             <li>Business</li>
           </Link>
           <Link
-            to="/Health/view-all"
+            to="/health/view-all"
             className={
               checkActive("Health") ? "bg-white p-2 text-black" : "p-2"
             }
@@ -36,7 +36,7 @@ const Header = () => {
             <li>Health</li>
           </Link>
           <Link
-            to="/Science/view-all"
+            to="/science/view-all"
             className={
               checkActive("Science") ? "bg-white p-2 text-black" : "p-2"
             }
@@ -44,7 +44,7 @@ const Header = () => {
             <li>Science</li>
           </Link>
           <Link
-            to="/Sports/view-all"
+            to="/sports/view-all"
             className={
               checkActive("Sports") ? "bg-white p-2 text-black" : "p-2"
             }
@@ -52,7 +52,7 @@ const Header = () => {
             <li>Sports</li>
           </Link>
           <Link
-            to="/Entertainment/view-all"
+            to="/entertainment/view-all"
             className={
               checkActive("Entertainment") ? "bg-white p-2 text-black" : "p-2"
             }
@@ -60,7 +60,7 @@ const Header = () => {
             <li>Entertainment</li>
           </Link>
           <Link
-            to="/Technology/view-all"
+            to="/technology/view-all"
             className={
               checkActive("Technology") ? "bg-white p-2 text-black" : "p-2"
             }
@@ -69,7 +69,7 @@ const Header = () => {
           </Link>
 
           <Link
-            to="/General/view-all"
+            to="/general/view-all"
             className={
               checkActive("General") ? "bg-white p-2 text-black" : "p-2"
             }

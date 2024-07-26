@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import NewsCategory from "./NewsCategory";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { useParams } from "react-router-dom";
-import { dateFormatting } from "../utils/dateformat";
+import { dateFormatting2 } from "../utils/dateformat";
 import useFetchData from "../hooks/useFetchData";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
@@ -17,31 +17,39 @@ import ErrorPage from "./ErrorPage";
 const SingleBlog = () => {
   const [newsArticle, setNewsArticle] = useState();
   const params = useParams();
-  // console.log(params);
+  const { category, title } = params;
+  console.log(category, title);
 
   useScrollToTop();
+  // const { data, loading, error } = useFetchData(
+  //   "https://newsapi.org/v2/top-headlines",
+  //   {
+  //     q: `${params?.title}`,
+  //     category: `${params?.category}`,
+  //     page: 1,
+  //   }
+  // );
   const { data, loading, error } = useFetchData(
-    "https://newsapi.org/v2/top-headlines",
+    "https://api.currentsapi.services/v1/search",
     {
-      q: `${params?.title}`,
-      category: `${params?.category}`,
-      page: 1,
+      keywords: title,
+      category: category,
+      page_size: 1,
     }
   );
   useEffect(() => {
-    if (data?.articles?.length > 0) {
-      setNewsArticle(data?.articles[0]);
+    if (data?.news?.length > 0) {
+      setNewsArticle(data?.news[0]);
     }
   }, [data]);
 
-  if (error || data?.articles?.length === 0) return <ErrorPage />;
+  if (error || data?.news?.length === 0) return <ErrorPage />;
 
   if (loading) return <ShimmerUI />;
 
   if (newsArticle) {
-    const { title, content, description, urlToImage, publishedAt, author } =
-      newsArticle;
-    const { formattedDate, relativeTime } = dateFormatting(publishedAt);
+    const { title, description, image, published, author } = newsArticle;
+    const { formattedDate, relativeTime } = dateFormatting2(published);
     const [firstName, lastName] = author?.split(" ") || ["Unknown", "Author"];
 
     return (
@@ -58,12 +66,12 @@ const SingleBlog = () => {
           </div>
           <div className="w-[70%] flex flex-col gap-8 mt-6">
             <img
-              src={urlToImage ? urlToImage : NEWS_IMAGES[params?.category]}
+              src={image ? image : NEWS_IMAGES[params?.category]}
               alt=""
               className="w-full object-cover"
             />
             <p className="font-normal text-lg leading-8">{description}</p>
-            <p className="font-normal text-lg leading-8">{content}</p>
+            <p className="font-normal text-lg leading-8">{description}</p>
             <p className="font-normal text-lg leading-8">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
