@@ -3,7 +3,7 @@ import { faArrowTurnUp, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useParams } from "react-router-dom";
 import useScrollToTop from "../hooks/useScrollToTop";
-import { dateFormatting2 } from "../utils/dateformat";
+import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import useFetchData from "../hooks/useFetchData";
 import { COLOR_CODES, NEWS_IMAGES } from "../utils/constants";
@@ -16,7 +16,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
   const { category, newsColor } = categoryInfo;
   const { title, description, image, published } = article;
 
-  const { formattedDate } = dateFormatting2(published);
+  const { formattedDate } = dateFormatting(published);
 
   return (
     <div className="w-full flex flex-col gap-8">

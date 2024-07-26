@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import NewsCategory from "./NewsCategory";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { useParams } from "react-router-dom";
-import { dateFormatting2 } from "../utils/dateformat";
+import { dateFormatting } from "../utils/dateformat";
 import useFetchData from "../hooks/useFetchData";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
@@ -40,7 +40,7 @@ const SingleBlog = () => {
 
   if (newsArticle) {
     const { title, description, image, published, author } = newsArticle;
-    const { formattedDate, relativeTime } = dateFormatting2(published);
+    const { formattedDate, relativeTime } = dateFormatting(published);
     const [firstName, lastName] = author?.split(" ") || ["Unknown", "Author"];
 
     return (

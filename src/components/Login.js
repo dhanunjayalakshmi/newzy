@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
-import { dateFormatting2 } from "../utils/dateformat";
+import { dateFormatting } from "../utils/dateformat";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
 import ErrorPage from "./ErrorPage";
@@ -11,7 +11,7 @@ import ErrorPage from "./ErrorPage";
 const NewsComponent = ({ article }) => {
   const { title, description, image, published } = article;
 
-  const { formattedDate } = dateFormatting2(published);
+  const { formattedDate } = dateFormatting(published);
 
   return (
     <div className="w-full flex flex-col gap-4">
