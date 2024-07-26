@@ -17,7 +17,7 @@ const NewsComponent = ({ article }) => {
     <div className="w-full flex flex-col gap-4">
       <div className="h-44 relative">
         <img
-          src={image ? image : NEWS_IMAGES["General"]}
+          src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
           alt=""
           className="w-full h-44 object-cover"
         />

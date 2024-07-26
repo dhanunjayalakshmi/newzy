@@ -6,10 +6,12 @@ const useFetchData = (baseUrl, params = {}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+  const { category, page_size } = params;
 
   useEffect(() => {
     if (!baseUrl) return;
+
+    const apiKey = process.env.REACT_APP_NEWS_API_KEY;
 
     const fetchData = async () => {
       setLoading(true);
@@ -17,7 +19,8 @@ const useFetchData = (baseUrl, params = {}) => {
       try {
         const response = await axios.get(baseUrl, {
           params: {
-            ...params,
+            category,
+            page_size,
             country: "us",
             language: "en",
             apiKey: apiKey,
@@ -33,7 +36,7 @@ const useFetchData = (baseUrl, params = {}) => {
     };
 
     fetchData();
-  }, [baseUrl, params, apiKey]); // Dependency array includes URL and options to refetch when they change
+  }, [baseUrl, category, page_size]);
 
   return { data, loading, error };
 };

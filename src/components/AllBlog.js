@@ -18,15 +18,11 @@ const NewsGrid = ({ article, categoryInfo }) => {
 
   const { formattedDate } = dateFormatting2(published);
 
-  const handleClick = () => {
-    console.log(category, title);
-  };
-
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="h-[40%] relative">
         <img
-          src={image ? image : NEWS_IMAGES[category]}
+          src={image?.length > 10 ? image : NEWS_IMAGES[category]}
           alt=""
           className="w-full h-48 object-cover"
         />
@@ -54,10 +50,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
         </p>
         <div className="py-2">
           <Link to={`/${category}/${title}`}>
-            <button
-              className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center"
-              onClick={handleClick}
-            >
+            <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center">
               Read More
               <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
             </button>

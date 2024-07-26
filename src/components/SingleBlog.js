@@ -18,30 +18,21 @@ const SingleBlog = () => {
   const [newsArticle, setNewsArticle] = useState();
   const params = useParams();
   const { category, title } = params;
-  console.log(category, title);
 
   useScrollToTop();
-  // const { data, loading, error } = useFetchData(
-  //   "https://newsapi.org/v2/top-headlines",
-  //   {
-  //     q: `${params?.title}`,
-  //     category: `${params?.category}`,
-  //     page: 1,
-  //   }
-  // );
+
   const { data, loading, error } = useFetchData(
-    "https://api.currentsapi.services/v1/search",
+    "https://api.currentsapi.services/v1/latest-news",
     {
-      keywords: title,
       category: category,
-      page_size: 1,
+      page_size: 30,
     }
   );
   useEffect(() => {
     if (data?.news?.length > 0) {
-      setNewsArticle(data?.news[0]);
+      setNewsArticle(data?.news?.find((article) => article?.title === title));
     }
-  }, [data]);
+  }, [data, title]);
 
   if (error || data?.news?.length === 0) return <ErrorPage />;
 
@@ -66,7 +57,7 @@ const SingleBlog = () => {
           </div>
           <div className="w-[70%] flex flex-col gap-8 mt-6">
             <img
-              src={image ? image : NEWS_IMAGES[params?.category]}
+              src={image?.length > 10 ? image : NEWS_IMAGES[category]}
               alt=""
               className="w-full object-cover"
             />
