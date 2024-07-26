@@ -2,7 +2,7 @@ import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { dateFormatting2 } from "../utils/dateformat";
+import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
@@ -11,7 +11,7 @@ import ErrorPage from "./ErrorPage";
 const SideArticle = ({ article }) => {
   const { title, description, image, published } = article;
 
-  const { formattedDate } = dateFormatting2(published);
+  const { formattedDate } = dateFormatting(published);
   return (
     <div className="flex justify-between gap-6">
       <img
@@ -63,7 +63,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
   if (articles) {
     const { title, description, image, published } = mainArticle;
 
-    const { formattedDate } = dateFormatting2(published);
+    const { formattedDate } = dateFormatting(published);
 
     return (
       <div className="w-full flex justify-center mt-10">

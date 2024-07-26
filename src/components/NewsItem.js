@@ -2,7 +2,7 @@ import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import { dateFormatting2 } from "../utils/dateformat";
+import { dateFormatting } from "../utils/dateformat";
 import { truncateText } from "../utils/textTruncation";
 import { NEWS_IMAGES } from "../utils/constants";
 
@@ -11,7 +11,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
 
   const { category, newsColor } = categoryInfo;
 
-  const { formattedDate } = dateFormatting2(published);
+  const { formattedDate } = dateFormatting(published);
 
   return (
     <div className="w-full flex flex-col gap-8">
