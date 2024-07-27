@@ -9,7 +9,6 @@ import ShimmerUI from "./ShimmerUI";
 import ErrorPage from "./ErrorPage";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { checkValidData } from "../utils/validate";
 
 const NewsComponent = ({ article }) => {
   const { title, description, image, published } = article;
@@ -75,15 +74,6 @@ const Login = () => {
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
-    // Validate the Form data
-    const validationResult = checkValidData(
-      email?.current?.value,
-      password?.current?.value
-    );
-
-    setErrorMesg(validationResult);
-
-    if (validationResult) return;
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -95,7 +85,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       console.log(error?.message);
-      setErrorMesg(error?.code + "-" + error?.message);
+      setErrorMesg("Invalid credentials");
     }
 
     if (email.current) email.current.value = "";
@@ -103,8 +93,6 @@ const Login = () => {
   };
 
   if (error) return <ErrorPage />;
-
-  if (errorMesg) return <ErrorPage />;
 
   if (loading) return <ShimmerUI />;
 
@@ -126,6 +114,7 @@ const Login = () => {
           </div>
           <div className="w-[45%] flex flex-col items-end">
             <div className="w-[90%] flex flex-col items-center p-8 border border-black gap-8">
+              <p className="text-xl font-semibold text-red-500">{errorMesg}</p>
               <h2 className="text-4xl font-bold">Newzy</h2>
               <form
                 onSubmit={handleButtonClick}

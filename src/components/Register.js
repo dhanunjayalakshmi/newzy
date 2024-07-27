@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NewsCategory from "./NewsCategory";
-import ErrorPage from "./ErrorPage";
 import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { checkValidData } from "../utils/validate";
@@ -41,17 +40,16 @@ const Register = () => {
         password?.current?.value
       );
       console.log(userCredential?.user);
+
+      if (email.current) email.current.value = "";
+      if (password.current) password.current.value = "";
+
       navigate("/");
     } catch (error) {
       console.log(error?.message);
-      setErrorMesg(error?.code + "-" + error?.message);
+      setErrorMesg(error?.message);
     }
-
-    if (email.current) email.current.value = "";
-    if (password.current) password.current.value = "";
   };
-
-  if (errorMesg) return <ErrorPage />;
 
   return (
     <div className="w-full max-w-screen-xl flex justify-center items-center mt-6 mx-auto ">
@@ -68,6 +66,7 @@ const Register = () => {
         </div>
         <div className="w-[45%] flex flex-col items-center">
           <div className="w-[90%] flex flex-col items-center p-8 border border-black gap-8">
+            <p className="text-xl font-semibold text-red-500">{errorMesg}</p>
             <h2 className="text-4xl font-bold">Newzy</h2>
             <form
               onSubmit={handleButtonClick}
