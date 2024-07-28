@@ -18,7 +18,14 @@ const RoutesConfig = () => {
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
     { path: "/forgotPassword", element: <ForgotPassword /> },
-    { path: "/updatePassword", element: <UpdatePassword /> },
+    {
+      path: "/updatePassword",
+      element: (
+        <ProtectedRoute>
+          <UpdatePassword />
+        </ProtectedRoute>
+      ),
+    },
     {
       path: "/:category/view-all",
       element: (

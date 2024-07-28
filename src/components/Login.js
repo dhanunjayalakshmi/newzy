@@ -1,7 +1,7 @@
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { dateFormatting } from "../utils/dateformat";
 import { NEWS_IMAGES } from "../utils/constants";
@@ -54,6 +54,9 @@ const Login = () => {
   const [errorMesg, setErrorMesg] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const email = useRef(null);
   const password = useRef(null);
@@ -72,7 +75,7 @@ const Login = () => {
     }
   }, [data]);
 
-  const handleButtonClick = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
@@ -83,7 +86,7 @@ const Login = () => {
       );
       console.log(userCredential?.user);
       localStorage.setItem("user", JSON.stringify(userCredential.user));
-      navigate("/");
+      navigate(from);
     } catch (error) {
       console.log(error?.message);
       setErrorMesg("Invalid credentials");
@@ -118,7 +121,7 @@ const Login = () => {
               <p className="text-xl font-semibold text-red-500">{errorMesg}</p>
               <h2 className="text-4xl font-bold">Newzy</h2>
               <form
-                onSubmit={handleButtonClick}
+                onSubmit={handleLogin}
                 className="w-[90%] flex flex-col gap-6"
               >
                 <label htmlFor="email" className="flex flex-col gap-2">

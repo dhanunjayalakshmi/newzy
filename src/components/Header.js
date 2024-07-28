@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -90,8 +90,10 @@ const Header = () => {
           </p>
           {user ? (
             <div className="flex justify-between gap-6 text-md font-bold ml-16">
-              <p className="">{user?.displayName}</p>
-
+              <p className="flex justify-between items-center gap-2">
+                <FontAwesomeIcon icon={faUser} />
+                {user?.displayName}
+              </p>
               <button onClick={handleLogout}>Logout</button>
             </div>
           ) : (
