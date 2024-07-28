@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NewsCategory from "./NewsCategory";
 import { auth } from "../utils/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { checkValidData } from "../utils/validate";
 
 const Register = () => {
@@ -33,13 +33,33 @@ const Register = () => {
     if (validationResult) return;
 
     try {
-      console.log(password?.current?.value);
+      // console.log(password?.current?.value);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email?.current?.value,
         password?.current?.value
       );
-      console.log(userCredential?.user);
+      const user = userCredential?.user;
+
+      await updateProfile(user, {
+        displayName: name?.current?.value,
+      });
+
+      const updatedUser = {
+        ...user,
+        displayName: name?.current?.value,
+      };
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          uid: updatedUser?.uid,
+          email: updatedUser?.email,
+          displayName: updatedUser?.displayName,
+        })
+      );
+
+      console.log("User registered and profile updated:", user?.displayName);
 
       if (email.current) email.current.value = "";
       if (password.current) password.current.value = "";

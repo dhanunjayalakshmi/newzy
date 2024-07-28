@@ -10,6 +10,7 @@ import AllBlog from "./components/AllBlog";
 // import AllBlogSidebar from "./components/AllBlogSidebar";
 import SingleBlog from "./components/SingleBlog";
 import ErrorPage from "./components/ErrorPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const RoutesConfig = () => {
   return useRoutes([
@@ -18,8 +19,22 @@ const RoutesConfig = () => {
     { path: "/register", element: <Register /> },
     { path: "/forgotPassword", element: <ForgotPassword /> },
     { path: "/updatePassword", element: <UpdatePassword /> },
-    { path: "/:category/view-all", element: <AllBlog /> },
-    { path: "/:category/:title", element: <SingleBlog /> },
+    {
+      path: "/:category/view-all",
+      element: (
+        <ProtectedRoute>
+          <AllBlog />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/:category/:title",
+      element: (
+        <ProtectedRoute>
+          <SingleBlog />
+        </ProtectedRoute>
+      ),
+    },
     { path: "", element: <ErrorPage /> },
     // {
     //   path: "/allBlog/:category",

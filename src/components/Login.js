@@ -82,6 +82,7 @@ const Login = () => {
         password?.current?.value
       );
       console.log(userCredential?.user);
+      localStorage.setItem("user", JSON.stringify(userCredential.user));
       navigate("/");
     } catch (error) {
       console.log(error?.message);
