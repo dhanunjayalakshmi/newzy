@@ -13,6 +13,7 @@ const UserProfile = () => {
             <img
               src="https://png.pngtree.com/png-clipart/20191121/original/pngtree-user-icon-png-image_5097430.jpg"
               alt=""
+              className="w-full h-full"
             />
           </div>
           <div className="flex flex-1 flex-col justify-center gap-6 text-xl font-bold">
