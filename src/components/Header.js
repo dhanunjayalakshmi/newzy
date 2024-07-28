@@ -90,10 +90,13 @@ const Header = () => {
           </p>
           {user ? (
             <div className="flex justify-between gap-6 text-md font-bold ml-16">
-              <p className="flex justify-between items-center gap-2">
-                <FontAwesomeIcon icon={faUser} />
-                {user?.displayName}
-              </p>
+              <Link to="/userProfile">
+                <p className="flex justify-between items-center gap-2">
+                  <FontAwesomeIcon icon={faUser} />
+                  {user?.displayName}
+                </p>
+              </Link>
+
               <button onClick={handleLogout}>Logout</button>
             </div>
           ) : (

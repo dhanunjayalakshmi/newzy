@@ -11,6 +11,7 @@ import AllBlog from "./components/AllBlog";
 import SingleBlog from "./components/SingleBlog";
 import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UserProfile from "./components/UserProfile";
 
 const RoutesConfig = () => {
   return useRoutes([
@@ -18,6 +19,14 @@ const RoutesConfig = () => {
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
     { path: "/forgotPassword", element: <ForgotPassword /> },
+    {
+      path: "/userProfile",
+      element: (
+        <ProtectedRoute>
+          <UserProfile />
+        </ProtectedRoute>
+      ),
+    },
     {
       path: "/updatePassword",
       element: (
