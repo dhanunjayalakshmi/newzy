@@ -1,8 +1,76 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import NewsCategory from "./NewsCategory";
+import { auth } from "../utils/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { checkValidData } from "../utils/validate";
 
 const Register = () => {
+  const [errorMesg, setErrorMesg] = useState(null);
+
+  const navigate = useNavigate();
+
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
+  const confirmPassword = useRef(null);
+
+  const handleButtonClick = async (e) => {
+    e.preventDefault();
+
+    if (password?.current?.value !== confirmPassword?.current?.value) {
+      setErrorMesg("Passwords do not match");
+      return;
+    }
+    const validationResult = checkValidData(
+      email?.current?.value,
+      password?.current?.value
+    );
+
+    setErrorMesg(validationResult);
+    console.log(validationResult);
+
+    if (validationResult) return;
+
+    try {
+      // console.log(password?.current?.value);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email?.current?.value,
+        password?.current?.value
+      );
+      const user = userCredential?.user;
+
+      await updateProfile(user, {
+        displayName: name?.current?.value,
+      });
+
+      const updatedUser = {
+        ...user,
+        displayName: name?.current?.value,
+      };
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          uid: updatedUser?.uid,
+          email: updatedUser?.email,
+          displayName: updatedUser?.displayName,
+        })
+      );
+
+      console.log("User registered and profile updated:", user?.displayName);
+
+      if (email.current) email.current.value = "";
+      if (password.current) password.current.value = "";
+
+      navigate("/");
+    } catch (error) {
+      console.log(error?.message);
+      setErrorMesg(error?.message);
+    }
+  };
+
   return (
     <div className="w-full max-w-screen-xl flex justify-center items-center mt-6 mx-auto ">
       <div className="flex flex-col gap-12 items-center">
@@ -18,11 +86,16 @@ const Register = () => {
         </div>
         <div className="w-[45%] flex flex-col items-center">
           <div className="w-[90%] flex flex-col items-center p-8 border border-black gap-8">
+            <p className="text-xl font-semibold text-red-500">{errorMesg}</p>
             <h2 className="text-4xl font-bold">Newzy</h2>
-            <div className="w-[90%] flex flex-col gap-6">
+            <form
+              onSubmit={handleButtonClick}
+              className="w-[90%] flex flex-col gap-6"
+            >
               <label htmlFor="email" className="flex flex-col gap-2">
                 Name
                 <input
+                  ref={name}
                   type="text"
                   name="name"
                   id="name"
@@ -33,6 +106,7 @@ const Register = () => {
               <label htmlFor="email" className="flex flex-col gap-2">
                 Email
                 <input
+                  ref={email}
                   type="email"
                   name="email"
                   id="email"
@@ -43,6 +117,7 @@ const Register = () => {
               <label htmlFor="password" className="flex flex-col gap-2">
                 Password
                 <input
+                  ref={password}
                   type="password"
                   name="password"
                   id="password"
@@ -53,6 +128,7 @@ const Register = () => {
               <label htmlFor="confirmPassword" className="flex flex-col gap-2">
                 Confirm Password
                 <input
+                  ref={confirmPassword}
                   type="password"
                   name="confirmPassword"
                   id="confirmPassword"
@@ -64,7 +140,7 @@ const Register = () => {
               <button className="bg-[#2b2d42] p-4 text-white text-lg font-medium rounded-lg">
                 Register
               </button>
-            </div>
+            </form>
             <p className="text-sm">
               Do you already have an account??{" "}
               <Link to="/login" className="text-lg font-bold">

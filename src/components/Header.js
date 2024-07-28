@@ -1,14 +1,21 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage?.getItem("user"));
 
   const checkActive = (basePath) => {
     const currentPaths = location?.pathname?.split("/");
     return currentPaths[1] === basePath;
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   return (
@@ -81,15 +88,27 @@ const Header = () => {
           <p>
             <FontAwesomeIcon icon={faMagnifyingGlass} className="text-xl" />
           </p>
+          {user ? (
+            <div className="flex justify-between gap-6 text-md font-bold ml-16">
+              <Link to="/userProfile">
+                <p className="flex justify-between items-center gap-2">
+                  <FontAwesomeIcon icon={faUser} />
+                  {user?.displayName}
+                </p>
+              </Link>
 
-          <div className="flex justify-between gap-6 text-sm font-normal ml-16">
-            <Link to="/login">
-              <p>Login</p>
-            </Link>
-            <Link to="/register">
-              <p>Register</p>
-            </Link>
-          </div>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          ) : (
+            <div className="flex justify-between gap-6 text-sm font-normal ml-16">
+              <Link to="/login">
+                <p>Login</p>
+              </Link>
+              <Link to="/register">
+                <p>Register</p>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,12 +1,14 @@
 import { faArrowTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import { dateFormatting } from "../utils/dateformat";
 import { NEWS_IMAGES } from "../utils/constants";
 import ShimmerUI from "./ShimmerUI";
 import ErrorPage from "./ErrorPage";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const NewsComponent = ({ article }) => {
   const { title, description, image, published } = article;
@@ -49,6 +51,15 @@ const NewsComponent = ({ article }) => {
 
 const Login = () => {
   const [articles, setArticles] = useState(null);
+  const [errorMesg, setErrorMesg] = useState(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const email = useRef(null);
+  const password = useRef(null);
 
   const { data, loading, error } = useFetchData(
     "https://api.currentsapi.services/v1/latest-news",
@@ -63,6 +74,27 @@ const Login = () => {
       setArticles(data?.news);
     }
   }, [data]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email?.current?.value,
+        password?.current?.value
+      );
+      console.log(userCredential?.user);
+      localStorage.setItem("user", JSON.stringify(userCredential.user));
+      navigate(from);
+    } catch (error) {
+      console.log(error?.message);
+      setErrorMesg("Invalid credentials");
+    }
+
+    if (email.current) email.current.value = "";
+    if (password.current) password.current.value = "";
+  };
 
   if (error) return <ErrorPage />;
 
@@ -86,11 +118,16 @@ const Login = () => {
           </div>
           <div className="w-[45%] flex flex-col items-end">
             <div className="w-[90%] flex flex-col items-center p-8 border border-black gap-8">
+              <p className="text-xl font-semibold text-red-500">{errorMesg}</p>
               <h2 className="text-4xl font-bold">Newzy</h2>
-              <div className="w-[90%] flex flex-col gap-6">
+              <form
+                onSubmit={handleLogin}
+                className="w-[90%] flex flex-col gap-6"
+              >
                 <label htmlFor="email" className="flex flex-col gap-2">
                   Email
                   <input
+                    ref={email}
                     type="email"
                     name="email"
                     id="email"
@@ -101,6 +138,7 @@ const Login = () => {
                 <label htmlFor="password" className="flex flex-col gap-2">
                   Password
                   <input
+                    ref={password}
                     type="password"
                     name="password"
                     id="password"
@@ -126,7 +164,7 @@ const Login = () => {
                 <button className="bg-[#2b2d42] p-4 text-white text-lg font-medium rounded-lg">
                   Login
                 </button>
-              </div>
+              </form>
               <p className="text-sm">
                 Don't have an account?{" "}
                 <Link to="/register" className="text-lg font-bold">
