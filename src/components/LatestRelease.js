@@ -13,33 +13,35 @@ const SideArticle = ({ article }) => {
 
   const { formattedDate } = dateFormatting(published);
   return (
-    <div className="flex justify-between gap-6">
-      <img
-        src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
-        alt=""
-        className="w-[45%] object-cover"
-      />
-      <div className="flex flex-col gap-2">
-        <p className="text-sm pt-2">{formattedDate}</p>
-        <h5 className="text-xl font-bold">{truncateText(title, 55)}</h5>
-        <p className="leading-6 text-sm text-[#88888c]">
-          {description
-            ? truncateText(description, 150)
-            : truncateText(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos minus velit, inventore, ut culpa explicabo cupiditate tempora excepturi perferendis consequatur ea dignissimos corporis non unde soluta blanditiis perspiciatis animi nostrum?",
-                150
-              )}
-        </p>
-        <div className="py-4">
-          <Link to={`/general/${title}`}>
-            <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
-              Read More
-              <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-            </button>
-          </Link>
+    <Link to={`/general/${title}`}>
+      <div className="flex justify-between gap-6">
+        <img
+          src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
+          alt=""
+          className="w-[45%] object-cover hover:scale-90 transform transition duration-300 ease-in-out"
+        />
+        <div className="flex flex-col gap-2">
+          <p className="text-sm pt-2">{formattedDate}</p>
+          <h5 className="text-xl font-bold">{truncateText(title, 55)}</h5>
+          <p className="leading-6 text-sm text-[#88888c]">
+            {description
+              ? truncateText(description, 150)
+              : truncateText(
+                  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos minus velit, inventore, ut culpa explicabo cupiditate tempora excepturi perferendis consequatur ea dignissimos corporis non unde soluta blanditiis perspiciatis animi nostrum?",
+                  150
+                )}
+          </p>
+          <div className="py-4">
+            <Link to={`/general/${title}`}>
+              <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
+                Read More
+                <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -80,7 +82,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
           </div>
           <div className="flex justify-around gap-12 py-4">
             <div className="w-[44%] flex flex-col gap-8">
-              <div className="h-64 relative">
+              <div className="h-64 relative hover:scale-90 transform transition duration-300 ease-in-out">
                 <img
                   src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
                   alt=""
@@ -93,25 +95,30 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
                   <p className="text-sm font-normal">{formattedDate}</p>
                 </div>
               </div>
-              <div className="flex flex-col gap-4">
-                <h3 className="text-2xl font-bold">{title}</h3>
-                <p className="leading-6 text-sm text-[#88888c]">
-                  {description
-                    ? truncateText(description, 150)
-                    : truncateText(
-                        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos minus velit, inventore, ut culpa explicabo cupiditate tempora excepturi perferendis consequatur ea dignissimos corporis non unde soluta blanditiis perspiciatis animi nostrum?",
-                        150
-                      )}
-                </p>
-                <div className="py-4">
-                  <Link to={`/general/${title}`}>
-                    <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
-                      Read More
-                      <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-                    </button>
-                  </Link>
+              <Link to={`/general/${title}`}>
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-2xl font-bold">{title}</h3>
+                  <p className="leading-6 text-sm text-[#88888c]">
+                    {description
+                      ? truncateText(description, 150)
+                      : truncateText(
+                          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos minus velit, inventore, ut culpa explicabo cupiditate tempora excepturi perferendis consequatur ea dignissimos corporis non unde soluta blanditiis perspiciatis animi nostrum?",
+                          150
+                        )}
+                  </p>
+                  <div className="py-4">
+                    <Link to={`/general/${title}`}>
+                      <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
+                        Read More
+                        <FontAwesomeIcon
+                          icon={faArrowTurnUp}
+                          className="mx-2"
+                        />
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
             <div className="flex flex-1 flex-col gap-10">
               {sideArticles?.map((sideArticle) => (

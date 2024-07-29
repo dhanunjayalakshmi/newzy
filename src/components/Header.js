@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -25,11 +25,13 @@ const Header = () => {
           <h1 className="font-bold text-4xl cursor-pointer">Newzy</h1>
         </Link>
 
-        <ul className="flex gap-2 text-lg font-semibold ml-40">
+        <ul className="flex gap-4 text-lg font-semibold ml-40">
           <Link
             to="/business/view-all"
             className={
-              checkActive("Business") ? "bg-white p-2 text-black" : "p-2"
+              checkActive("business")
+                ? "border-b-2 p-2"
+                : "p-2 hover:scale-110 transform transition duration-300 ease-in-out"
             }
           >
             <li>Business</li>
@@ -37,7 +39,9 @@ const Header = () => {
           <Link
             to="/health/view-all"
             className={
-              checkActive("Health") ? "bg-white p-2 text-black" : "p-2"
+              checkActive("health")
+                ? "border-b-2 p-2"
+                : "p-2 hover:scale-110 transform transition duration-300 ease-in-out"
             }
           >
             <li>Health</li>
@@ -45,7 +49,9 @@ const Header = () => {
           <Link
             to="/science/view-all"
             className={
-              checkActive("Science") ? "bg-white p-2 text-black" : "p-2"
+              checkActive("science")
+                ? "border-b-2 p-2"
+                : "p-2 hover:scale-110 transform transition duration-300 ease-in-out"
             }
           >
             <li>Science</li>
@@ -53,7 +59,9 @@ const Header = () => {
           <Link
             to="/sports/view-all"
             className={
-              checkActive("Sports") ? "bg-white p-2 text-black" : "p-2"
+              checkActive("sports")
+                ? "border-b-2 p-2"
+                : "p-2 hover:scale-110 transform transition duration-300 ease-in-out"
             }
           >
             <li>Sports</li>
@@ -61,7 +69,9 @@ const Header = () => {
           <Link
             to="/entertainment/view-all"
             className={
-              checkActive("Entertainment") ? "bg-white p-2 text-black" : "p-2"
+              checkActive("entertainment")
+                ? "border-b-2 p-2"
+                : "p-2 hover:scale-110 transform transition duration-300 ease-in-out"
             }
           >
             <li>Entertainment</li>
@@ -69,7 +79,9 @@ const Header = () => {
           <Link
             to="/technology/view-all"
             className={
-              checkActive("Technology") ? "bg-white p-2 text-black" : "p-2"
+              checkActive("technology")
+                ? "border-b-2 p-2"
+                : "p-2 hover:scale-110 transform transition duration-300 ease-in-out"
             }
           >
             <li>Technology</li>
@@ -78,16 +90,15 @@ const Header = () => {
           <Link
             to="/general/view-all"
             className={
-              checkActive("General") ? "bg-white p-2 text-black" : "p-2"
+              checkActive("general")
+                ? "border-b-2 p-2"
+                : "p-2 hover:scale-110 transform transition duration-300 ease-in-out"
             }
           >
             <li>Life</li>
           </Link>
         </ul>
-        <div className="flex justify-between ml-40">
-          <p>
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="text-xl" />
-          </p>
+        <div className="flex justify-between ml-20">
           {user ? (
             <div className="flex justify-between gap-6 text-md font-bold ml-16">
               <Link to="/userProfile">
@@ -100,12 +111,16 @@ const Header = () => {
               <button onClick={handleLogout}>Logout</button>
             </div>
           ) : (
-            <div className="flex justify-between gap-6 text-sm font-normal ml-16">
+            <div className="flex justify-between gap-6 text-md font-normal ml-16 ">
               <Link to="/login">
-                <p>Login</p>
+                <p className="hover:scale-110 transform transition duration-300 ease-in-out">
+                  Login
+                </p>
               </Link>
               <Link to="/register">
-                <p>Register</p>
+                <p className="hover:scale-110 transform transition duration-300 ease-in-out">
+                  Register
+                </p>
               </Link>
             </div>
           )}
