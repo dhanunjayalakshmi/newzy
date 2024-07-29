@@ -13,7 +13,7 @@ const SideArticle = ({ article }) => {
 
   const { formattedDate } = dateFormatting(published);
   return (
-    <Link to={`/general/${title}`}>
+    <Link to={`/general/${title?.replace("%", "")}`}>
       <div className="flex justify-between gap-6">
         <img
           src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
@@ -32,7 +32,7 @@ const SideArticle = ({ article }) => {
                 )}
           </p>
           <div className="py-4">
-            <Link to={`/general/${title}`}>
+            <Link to={`/general/${title?.replace("%", "")}`}>
               <button className="text-md py-2 px-6 bg-black text-white border rounded-lg">
                 Read More
                 <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
@@ -95,7 +95,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
                   <p className="text-sm font-normal">{formattedDate}</p>
                 </div>
               </div>
-              <Link to={`/general/${title}`}>
+              <Link to={`/general/${title?.replace("%", "")}`}>
                 <div className="flex flex-col gap-4">
                   <h3 className="text-2xl font-bold">{title}</h3>
                   <p className="leading-6 text-sm text-[#88888c]">
@@ -107,7 +107,7 @@ const LatestRelease = ({ newsArticles, loading, error }) => {
                         )}
                   </p>
                   <div className="py-4">
-                    <Link to={`/general/${title}`}>
+                    <Link to={`/general/${title?.replace("%", "")}`}>
                       <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
                         Read More
                         <FontAwesomeIcon

@@ -31,7 +31,7 @@ const SingleBlog = () => {
   useEffect(() => {
     if (data?.news?.length > 0) {
       const filteredArticle = data?.news?.find(
-        (article) => article?.title === title
+        (article) => article?.title?.replace("%", "") === title
       );
       setNewsArticle(filteredArticle);
     }
