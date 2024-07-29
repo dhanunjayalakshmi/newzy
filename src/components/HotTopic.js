@@ -13,7 +13,7 @@ const SideArticle = ({ article }) => {
   const { formattedDate, relativeTime } = dateFormatting(published);
 
   return (
-    <Link to={`/general/${title}`}>
+    <Link to={`/general/${title?.replace("%", "")}`}>
       <div className="w-full flex gap-2.5 hover:scale-110 transform transition duration-300 ease-in-out">
         <img
           src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
@@ -62,7 +62,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
       <div className="w-full flex justify-center mt-4">
         <div className="w-full max-w-screen-xl flex flex-col justify-center py-4 mx-auto">
           <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
-          <Link to={`/general/${title}`}>
+          <Link to={`/general/${title?.replace("%", "")}`}>
             <div className="w-full flex justify-around gap-6 py-4">
               <div className="w-[48%] h-[100%] hover:scale-90 transform transition duration-300 ease-in-out">
                 <img
@@ -76,7 +76,7 @@ const HotTopic = ({ newsArticles, loading, error }) => {
                 <h2 className="text-4xl font-bold px-4">{title}</h2>
                 <p className="text-xl font-bold p-4">{formattedDate}</p>
                 <div className="px-4 py-2">
-                  <Link to={`/general/${title}`}>
+                  <Link to={`/general/${title?.replace("%", "")}`}>
                     <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
                       Read More
                       <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />

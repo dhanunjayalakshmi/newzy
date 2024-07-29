@@ -16,7 +16,7 @@ const NewsComponent = ({ article }) => {
   const { formattedDate } = dateFormatting(published);
 
   return (
-    <Link to={`/general/${title}`}>
+    <Link to={`/general/${title?.replace("%", "")}`}>
       <div className="w-full flex flex-col gap-4 hover:scale-90 transform transition duration-300 ease-in-out">
         <div className="h-44 relative">
           <img
@@ -38,7 +38,7 @@ const NewsComponent = ({ article }) => {
           <h3 className="text-sm font-bold">{title}</h3>
           <p className="leading-6 text-xs text-[#88888c]">{description}</p>
           <div className="py-4">
-            <Link to={`/general/${title}`}>
+            <Link to={`/general/${title?.replace("%", "")}`}>
               <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg">
                 Read More
                 <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />

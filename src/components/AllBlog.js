@@ -19,7 +19,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
   const { formattedDate } = dateFormatting(published);
 
   return (
-    <Link to={`/${category}/${title}`}>
+    <Link to={`/${category}/${title?.replace("%", "")}`}>
       <div className="w-full flex flex-col gap-8 hover:scale-90 transform transition duration-300 ease-in-out">
         <div className="h-[40%] relative">
           <img
@@ -50,7 +50,7 @@ const NewsGrid = ({ article, categoryInfo }) => {
                 )}
           </p>
           <div className="py-2">
-            <Link to={`/${category}/${title}`}>
+            <Link to={`/${category}/${title?.replace("%", "")}`}>
               <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg  text-center">
                 Read More
                 <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
