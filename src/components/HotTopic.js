@@ -14,7 +14,7 @@ const SideArticle = ({ article }) => {
 
   return (
     <Link to={`/general/${title}`}>
-      <div className="w-full flex gap-2.5">
+      <div className="w-full flex gap-2.5 hover:scale-110 transform transition duration-300 ease-in-out">
         <img
           src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
           alt=""
@@ -62,28 +62,30 @@ const HotTopic = ({ newsArticles, loading, error }) => {
       <div className="w-full flex justify-center mt-4">
         <div className="w-full max-w-screen-xl flex flex-col justify-center py-4 mx-auto">
           <h1 className="font-bold text-4xl py-4">Hot Topic</h1>
-          <div className="w-full flex justify-around gap-6 py-4">
-            <div className="w-[48%] h-[100%]">
-              <img
-                src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <Link to={`/general/${title}`}>
+            <div className="w-full flex justify-around gap-6 py-4">
+              <div className="w-[48%] h-[100%] hover:scale-90 transform transition duration-300 ease-in-out">
+                <img
+                  src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            <div className="flex flex-1 flex-col gap-8 justify-center">
-              <h2 className="text-4xl font-bold px-4">{title}</h2>
-              <p className="text-xl font-bold p-4">{formattedDate}</p>
-              <div className="px-4 py-2">
-                <Link to={`/general/${title}`}>
-                  <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
-                    Read More
-                    <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
-                  </button>
-                </Link>
+              <div className="flex flex-1 flex-col gap-8 justify-center">
+                <h2 className="text-4xl font-bold px-4">{title}</h2>
+                <p className="text-xl font-bold p-4">{formattedDate}</p>
+                <div className="px-4 py-2">
+                  <Link to={`/general/${title}`}>
+                    <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
+                      Read More
+                      <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
           <div className="w-full flex gap-10 mt-6 py-4">
             {sideArticles?.map((sideArticle) => (
               <SideArticle key={sideArticle?.id} article={sideArticle} />

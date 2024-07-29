@@ -67,9 +67,11 @@ function App() {
   return (
     <div>
       <Router>
-        <div className="App w-full h-screen flex flex-col bg-white">
+        <div className="App w-full min-h-screen flex flex-col bg-white">
           <Header />
-          <RoutesConfig />
+          <main className="flex-1 mt-auto">
+            <RoutesConfig />
+          </main>
           <Footer />
         </div>
       </Router>

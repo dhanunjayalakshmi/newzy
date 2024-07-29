@@ -30,7 +30,10 @@ const SingleBlog = () => {
   );
   useEffect(() => {
     if (data?.news?.length > 0) {
-      setNewsArticle(data?.news?.find((article) => article?.title === title));
+      const filteredArticle = data?.news?.find(
+        (article) => article?.title === title
+      );
+      setNewsArticle(filteredArticle);
     }
   }, [data, title]);
 
@@ -38,74 +41,89 @@ const SingleBlog = () => {
 
   if (loading) return <ShimmerUI />;
 
-  if (newsArticle) {
-    const { title, description, image, published, author } = newsArticle;
-    const { formattedDate, relativeTime } = dateFormatting(published);
-    const [firstName, lastName] = author?.split(" ") || ["Unknown", "Author"];
-
+  if (newsArticle === undefined)
     return (
       <div className="w-full max-w-screen-xl flex justify-center items-center mt-10 py-4 mx-auto">
         <div className="w-full flex flex-col items-center gap-6">
-          <div className="w-[65%] flex flex-col text-center gap-8">
-            <h1 className="text-4xl font-bold">{title}</h1>
-            <p className="text-lg font-bold">
-              {formattedDate} -{" "}
-              <span className="text-md font-normal text-[#3e3e3f]">
-                {relativeTime}
-              </span>
-            </p>
-          </div>
-          <div className="w-[70%] flex flex-col gap-8 mt-6">
-            <img
-              src={image?.length > 10 ? image : NEWS_IMAGES[category]}
-              alt=""
-              className="w-full object-cover"
-            />
-            <p className="font-normal text-lg leading-8">{description}</p>
-            <p className="font-normal text-lg leading-8">{description}</p>
-            <p className="font-normal text-lg leading-8">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
-            <p className="font-normal text-lg leading-8">
-              It has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
-          </div>
-          <div className="w-[70%] h-px my-6 bg-black"></div>
-          <div className="w-[30%] flex flex-col items-center gap-2">
-            <div className="flex justify-center gap-4">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/219/219969.png"
-                alt=""
-                className="w-20 h-20 rounded-full"
-              />
-              <div className="flex flex-col justify-center">
-                <p className="font-bold text-2xl">{firstName}</p>
-                <p className="font-bold text-2xl"> {lastName}</p>
-              </div>
-            </div>
-            <p className="text-sm leading-8 text-center py-2">{description}</p>
-            <p className="text-lg font-bold text-center py-2">
-              Connect with Author
-            </p>
-            <div className="flex gap-6 text-xl py-2">
-              <FontAwesomeIcon icon={faFacebook} />
-              <FontAwesomeIcon icon={faInstagram} />
-              <FontAwesomeIcon icon={faTwitter} />
-            </div>
-          </div>
-          <NewsCategory category={params?.category} />
+          <p className="font-bold text-4xl p-4">
+            Sorry the article you are looking for is not available
+          </p>
         </div>
       </div>
     );
-  }
+
+  const {
+    title: articleTitle,
+    description,
+    image,
+    published,
+    author,
+  } = newsArticle;
+  const { formattedDate, relativeTime } = dateFormatting(published);
+  const [firstName, lastName] = author?.split(" ") || ["Unknown", "Author"];
+
+  return (
+    <div className="w-full max-w-screen-xl flex justify-center items-center mt-10 py-4 mx-auto">
+      <div className="w-full flex flex-col items-center gap-6">
+        <div className="w-[65%] flex flex-col text-center gap-8">
+          <h1 className="text-4xl font-bold">{articleTitle}</h1>
+          <p className="text-lg font-bold">
+            {formattedDate} -{" "}
+            <span className="text-md font-normal text-[#3e3e3f]">
+              {relativeTime}
+            </span>
+          </p>
+        </div>
+        <div className="w-[70%] flex flex-col gap-8 mt-6">
+          <img
+            src={image?.length > 10 ? image : NEWS_IMAGES[category]}
+            alt=""
+            className="w-full object-cover"
+          />
+          <p className="font-normal text-lg leading-8">{description}</p>
+          <p className="font-normal text-lg leading-8">{description}</p>
+          <p className="font-normal text-lg leading-8">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+          </p>
+          <p className="font-normal text-lg leading-8">
+            It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was
+            popularised in the 1960s with the release of Letraset sheets
+            containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem
+            Ipsum.
+          </p>
+        </div>
+        <div className="w-[70%] h-px my-6 bg-black"></div>
+        <div className="w-[30%] flex flex-col items-center gap-2">
+          <div className="flex justify-center gap-4">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/219/219969.png"
+              alt=""
+              className="w-20 h-20 rounded-full"
+            />
+            <div className="flex flex-col justify-center">
+              <p className="font-bold text-2xl">{firstName}</p>
+              <p className="font-bold text-2xl"> {lastName}</p>
+            </div>
+          </div>
+          <p className="text-sm leading-8 text-center py-2">{description}</p>
+          <p className="text-lg font-bold text-center py-2">
+            Connect with Author
+          </p>
+          <div className="flex gap-6 text-xl py-2">
+            <FontAwesomeIcon icon={faFacebook} />
+            <FontAwesomeIcon icon={faInstagram} />
+            <FontAwesomeIcon icon={faTwitter} />
+          </div>
+        </div>
+        <NewsCategory category={params?.category} />
+      </div>
+    </div>
+  );
 };
 
 export default SingleBlog;

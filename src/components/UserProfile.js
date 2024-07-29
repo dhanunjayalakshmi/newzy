@@ -1,8 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../utils/firebase";
+import { deleteUser } from "firebase/auth";
+import ToastAlert from "./ToastAlert";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const UserProfile = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [alertInfo, setAlertInfo] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
+
+  const navigate = useNavigate();
+
+  const showAlert = (message, type) => {
+    setAlertInfo({ show: true, message, type });
+  };
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const firebaseUser = auth?.currentUser;
+
+  const handleDeleteAccount = async () => {
+    setShowModal(false);
+
+    if (user) {
+      try {
+        await deleteUser(firebaseUser);
+        showAlert("Account deleted successfully.", "success");
+      } catch (error) {
+        alert(`Failed to delete account: ${error.message}`);
+      }
+    } else {
+      console.log("No user logged in or session expired");
+    }
+  };
+
+  useEffect(() => {
+    if (alertInfo.show && alertInfo.type === "success") {
+      setTimeout(() => {
+        localStorage.removeItem("user");
+        navigate("/");
+      }, 3000);
+    }
+  }, [alertInfo, navigate]);
 
   return (
     <div className="w-full flex justify-center mt-20">
@@ -27,10 +69,26 @@ const UserProfile = () => {
               Update Password
             </button>
           </Link>
-          <button className="px-6 py-3 bg-[#353852] font-bold text-white rounded hover:bg-[#292e67]">
+          <button
+            onClick={() => setShowModal(true)}
+            className="px-6 py-3 bg-[#353852] font-bold text-white rounded hover:bg-[#292e67]"
+          >
             Delete Account
           </button>
+          {showModal && (
+            <DeleteConfirmationModal
+              onDeleteConfirm={handleDeleteAccount}
+              onClose={() => setShowModal(false)}
+            />
+          )}
         </div>
+        {alertInfo.show && (
+          <ToastAlert
+            message={alertInfo.message}
+            type={alertInfo.type}
+            onClose={() => setAlertInfo({ ...alertInfo, show: false })}
+          />
+        )}
       </div>
     </div>
   );

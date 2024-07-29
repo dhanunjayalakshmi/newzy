@@ -16,36 +16,38 @@ const NewsComponent = ({ article }) => {
   const { formattedDate } = dateFormatting(published);
 
   return (
-    <div className="w-full flex flex-col gap-4">
-      <div className="h-44 relative">
-        <img
-          src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
-          alt=""
-          className="w-full h-44 object-cover"
-        />
-        {/* <div class="w-full h-max absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-75"></div> */}
-        <div className="w-full h-44 flex flex-col items-start absolute px-2 pt-2 gap-28 bottom-0 left-0 right-0 top-0 text-white bg-gradient-to-t from-black via-transparent to-transparent opacity-75">
-          <button
-            className={`flex self-end font-bold items-center justify-center text-center cursor-pointer py-1 px-3 text-xs bg-red-600`}
-          >
-            Hot Topic
-          </button>
-          <p className="text-sm font-normal">{formattedDate}</p>
-        </div>
-      </div>
-      <div className="flex flex-col gap-4">
-        <h3 className="text-sm font-bold">{title}</h3>
-        <p className="leading-6 text-xs text-[#88888c]">{description}</p>
-        <div className="py-4">
-          <Link to={`/general/${title}`}>
-            <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg">
-              Read More
-              <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+    <Link to={`/general/${title}`}>
+      <div className="w-full flex flex-col gap-4 hover:scale-90 transform transition duration-300 ease-in-out">
+        <div className="h-44 relative">
+          <img
+            src={image?.length > 10 ? image : NEWS_IMAGES["General"]}
+            alt=""
+            className="w-full h-44 object-cover"
+          />
+          {/* <div class="w-full h-max absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-75"></div> */}
+          <div className="w-full h-44 flex flex-col items-start absolute px-2 pt-2 gap-28 bottom-0 left-0 right-0 top-0 text-white bg-gradient-to-t from-black via-transparent to-transparent opacity-75">
+            <button
+              className={`flex self-end font-bold items-center justify-center text-center cursor-pointer py-1 px-3 text-xs bg-red-600`}
+            >
+              Hot Topic
             </button>
-          </Link>
+            <p className="text-sm font-normal">{formattedDate}</p>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <h3 className="text-sm font-bold">{title}</h3>
+          <p className="leading-6 text-xs text-[#88888c]">{description}</p>
+          <div className="py-4">
+            <Link to={`/general/${title}`}>
+              <button className="text-sm py-2 px-6 bg-black text-white border rounded-lg">
+                Read More
+                <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -84,11 +86,9 @@ const Login = () => {
         email?.current?.value,
         password?.current?.value
       );
-      console.log(userCredential?.user);
       localStorage.setItem("user", JSON.stringify(userCredential.user));
       navigate(from);
     } catch (error) {
-      console.log(error?.message);
       setErrorMesg("Invalid credentials");
     }
 
