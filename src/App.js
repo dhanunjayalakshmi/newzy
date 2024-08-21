@@ -44,7 +44,7 @@ const RoutesConfig = () => {
       ),
     },
     {
-      path: "/:category/:title",
+      path: "/:category/:id",
       element: (
         <ProtectedRoute>
           <SingleBlog />
