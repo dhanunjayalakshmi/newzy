@@ -1,12 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NewsCategory from "./NewsCategory";
 import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { checkValidData } from "../utils/validate";
+import ToastAlert from "./ToastAlert";
 
 const Register = () => {
   const [errorMesg, setErrorMesg] = useState(null);
+  const [alertInfo, setAlertInfo] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
 
   const navigate = useNavigate();
 
@@ -14,6 +20,18 @@ const Register = () => {
   const password = useRef(null);
   const name = useRef(null);
   const confirmPassword = useRef(null);
+
+  useEffect(() => {
+    if (alertInfo.show && alertInfo.type === "success") {
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [alertInfo, navigate]);
+
+  const showAlert = (message, type) => {
+    setAlertInfo({ show: true, message, type });
+  };
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
@@ -63,7 +81,10 @@ const Register = () => {
       if (email.current) email.current.value = "";
       if (password.current) password.current.value = "";
 
-      navigate("/");
+      showAlert(
+        "Registered successfully. Redirecting to home page.",
+        "success"
+      );
     } catch (error) {
       console.log(error?.message);
       setErrorMesg(error?.message);
@@ -150,6 +171,13 @@ const Register = () => {
               Now
             </p>
           </div>
+          {alertInfo?.show && (
+            <ToastAlert
+              message={alertInfo?.message}
+              type={alertInfo?.type}
+              onClose={() => setAlertInfo({ ...alertInfo, show: false })}
+            />
+          )}
         </div>
         <NewsCategory category="general" />
       </div>

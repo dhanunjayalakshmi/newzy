@@ -18,6 +18,7 @@ const UserProfile = () => {
   const showAlert = (message, type) => {
     setAlertInfo({ show: true, message, type });
   };
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const firebaseUser = auth?.currentUser;
@@ -82,7 +83,7 @@ const UserProfile = () => {
             />
           )}
         </div>
-        {alertInfo.show && (
+        {alertInfo?.show && (
           <ToastAlert
             message={alertInfo.message}
             type={alertInfo.type}
