@@ -33,7 +33,6 @@ const Register = () => {
     if (validationResult) return;
 
     try {
-      // console.log(password?.current?.value);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email?.current?.value,
@@ -86,7 +85,9 @@ const Register = () => {
         </div>
         <div className="w-[45%] flex flex-col items-center">
           <div className="w-[90%] flex flex-col items-center p-8 border border-black gap-8">
-            <p className="text-xl font-semibold text-red-500">{errorMesg}</p>
+            <p className="text-xl font-semibold text-red-500 px-4">
+              {errorMesg}
+            </p>
             <h2 className="text-4xl font-bold">Newzy</h2>
             <form
               onSubmit={handleButtonClick}
