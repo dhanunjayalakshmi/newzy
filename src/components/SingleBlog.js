@@ -17,7 +17,7 @@ import ErrorPage from "./ErrorPage";
 const SingleBlog = () => {
   const [newsArticle, setNewsArticle] = useState();
   const params = useParams();
-  const { category, title } = params;
+  const { category, id } = params;
 
   useScrollToTop();
 
@@ -30,12 +30,10 @@ const SingleBlog = () => {
   );
   useEffect(() => {
     if (data?.news?.length > 0) {
-      const filteredArticle = data?.news?.find(
-        (article) => article?.title?.replace("%", "") === title
-      );
+      const filteredArticle = data?.news?.find((article) => article?.id === id);
       setNewsArticle(filteredArticle);
     }
-  }, [data, title]);
+  }, [data, id]);
 
   if (error || data?.news?.length === 0) return <ErrorPage />;
 

@@ -7,7 +7,7 @@ import { truncateText } from "../utils/textTruncation";
 import { NEWS_IMAGES } from "../utils/constants";
 
 const NewsItem = ({ newsInfo, categoryInfo }) => {
-  const { title, description, image, published } = newsInfo;
+  const { id, title, description, image, published } = newsInfo;
   const { category, newsColor } = categoryInfo;
 
   const { formattedDate } = dateFormatting(published);
@@ -30,7 +30,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
           <p className="text-sm font-normal">{formattedDate}</p>
         </div>
       </div>
-      <Link to={`/${category}/${title?.replace("%", "")}`}>
+      <Link to={`/${category}/${id}`}>
         <div className="flex flex-col gap-4">
           <h3 className="text-2xl font-bold min-h-16">
             {truncateText(title, 55)}
@@ -44,7 +44,7 @@ const NewsItem = ({ newsInfo, categoryInfo }) => {
                 )}
           </p>
           <div className="py-4">
-            <Link to={`/${category}/${title?.replace("%", "")}`}>
+            <Link to={`/${category}/${id}`}>
               <button className="text-md py-2 px-4 bg-black text-white border rounded-lg">
                 Read More
                 <FontAwesomeIcon icon={faArrowTurnUp} className="mx-2" />
