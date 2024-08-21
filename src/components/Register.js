@@ -1,12 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NewsCategory from "./NewsCategory";
 import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { checkValidData } from "../utils/validate";
+import ToastAlert from "./ToastAlert";
 
 const Register = () => {
   const [errorMesg, setErrorMesg] = useState(null);
+  const [alertInfo, setAlertInfo] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
 
   const navigate = useNavigate();
 
@@ -14,6 +20,18 @@ const Register = () => {
   const password = useRef(null);
   const name = useRef(null);
   const confirmPassword = useRef(null);
+
+  useEffect(() => {
+    if (alertInfo.show && alertInfo.type === "success") {
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [alertInfo, navigate]);
+
+  const showAlert = (message, type) => {
+    setAlertInfo({ show: true, message, type });
+  };
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
@@ -28,12 +46,10 @@ const Register = () => {
     );
 
     setErrorMesg(validationResult);
-    console.log(validationResult);
 
     if (validationResult) return;
 
     try {
-      // console.log(password?.current?.value);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email?.current?.value,
@@ -59,14 +75,14 @@ const Register = () => {
         })
       );
 
-      console.log("User registered and profile updated:", user?.displayName);
-
       if (email.current) email.current.value = "";
       if (password.current) password.current.value = "";
 
-      navigate("/");
+      showAlert(
+        "Registered successfully. Redirecting to home page.",
+        "success"
+      );
     } catch (error) {
-      console.log(error?.message);
       setErrorMesg(error?.message);
     }
   };
@@ -86,7 +102,9 @@ const Register = () => {
         </div>
         <div className="w-[45%] flex flex-col items-center">
           <div className="w-[90%] flex flex-col items-center p-8 border border-black gap-8">
-            <p className="text-xl font-semibold text-red-500">{errorMesg}</p>
+            <p className="text-xl font-semibold text-red-500 px-4">
+              {errorMesg}
+            </p>
             <h2 className="text-4xl font-bold">Newzy</h2>
             <form
               onSubmit={handleButtonClick}
@@ -149,6 +167,13 @@ const Register = () => {
               Now
             </p>
           </div>
+          {alertInfo?.show && (
+            <ToastAlert
+              message={alertInfo?.message}
+              type={alertInfo?.type}
+              onClose={() => setAlertInfo({ ...alertInfo, show: false })}
+            />
+          )}
         </div>
         <NewsCategory category="general" />
       </div>

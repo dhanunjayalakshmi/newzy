@@ -14,9 +14,7 @@ const ForgotPassword = () => {
     try {
       await sendPasswordResetEmail(auth, email);
       setSuccessMesg("Password reset email sent successfully!");
-      console.log("Password reset email sent successfully!");
     } catch (error) {
-      console.error("Error sending password reset email:", error?.message);
       setErrorMesg("Error sending password reset email"); // Let the caller handle the error, possibly to show UI feedback
     }
   };

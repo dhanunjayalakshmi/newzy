@@ -18,6 +18,7 @@ const UserProfile = () => {
   const showAlert = (message, type) => {
     setAlertInfo({ show: true, message, type });
   };
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const firebaseUser = auth?.currentUser;
@@ -33,7 +34,10 @@ const UserProfile = () => {
         alert(`Failed to delete account: ${error.message}`);
       }
     } else {
-      console.log("No user logged in or session expired");
+      showAlert(
+        "No user logged in or session expired. Please try again",
+        "error"
+      );
     }
   };
 
@@ -82,7 +86,7 @@ const UserProfile = () => {
             />
           )}
         </div>
-        {alertInfo.show && (
+        {alertInfo?.show && (
           <ToastAlert
             message={alertInfo.message}
             type={alertInfo.type}
