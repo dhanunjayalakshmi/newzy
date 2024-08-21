@@ -34,7 +34,10 @@ const UserProfile = () => {
         alert(`Failed to delete account: ${error.message}`);
       }
     } else {
-      console.log("No user logged in or session expired");
+      showAlert(
+        "No user logged in or session expired. Please try again",
+        "error"
+      );
     }
   };
 

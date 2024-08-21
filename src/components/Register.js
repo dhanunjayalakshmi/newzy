@@ -46,7 +46,6 @@ const Register = () => {
     );
 
     setErrorMesg(validationResult);
-    console.log(validationResult);
 
     if (validationResult) return;
 
@@ -76,8 +75,6 @@ const Register = () => {
         })
       );
 
-      console.log("User registered and profile updated:", user?.displayName);
-
       if (email.current) email.current.value = "";
       if (password.current) password.current.value = "";
 
@@ -86,7 +83,6 @@ const Register = () => {
         "success"
       );
     } catch (error) {
-      console.log(error?.message);
       setErrorMesg(error?.message);
     }
   };
