@@ -38,12 +38,6 @@ This project focuses on frontend best practices such as API integration, state h
 
 ---
 
-## 📸 Screenshots
-
-(Add screenshots of homepage, category view, and responsive layout here)
-
----
-
 ## 📂 Project Purpose
 
 This project was built to simulate a real-world frontend application where:
